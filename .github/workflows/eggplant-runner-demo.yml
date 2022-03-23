@@ -28,6 +28,3 @@ jobs:
           # alternatively, one could set a repo secret in GitHub Settings > Secrets > Actions
           # and refer to it like below.
           # clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"
-          
-          # for development usage only
-          gitlabAccessToken: "${{ secrets.GITLAB_ACCESS_TOKEN }}"
