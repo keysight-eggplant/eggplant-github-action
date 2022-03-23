@@ -74,10 +74,14 @@ runs:
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "https://gitlab.com/api/v4/projects/22402994/packages/generic/6.1-ci-cd/0.0.0/$CLI_FILENAME" --output $CLI_FILENAME
+          DOWNLOADURL = "https://gitlab.com/api/v4/projects/22402994/packages/generic/6.1-ci-cd/0.0.0/$CLI_FILENAME"
+          echo "Downloading $DOWNLOADURL..."
+          curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
           # Public URL download
-          curl -L https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$CLI_FILENAME --output $CLI_FILENAME
+          DOWNLOADURL = "https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$CLI_FILENAME"
+          echo "Downloading $DOWNLOADURL..."
+          curl -L $DOWNLOADURL --output $CLI_FILENAME
         fi
       shell: bash
 
@@ -98,5 +102,6 @@ runs:
           COMMANDSTR+=" --dry-run"
         fi
         
+        echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
         ./$CLI_FILENAME $COMMANDSTR
       shell: bash
