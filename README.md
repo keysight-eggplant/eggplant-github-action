@@ -12,13 +12,13 @@ In order to use the Eggplant Runner with GitHub Actions, you need to add this to
 name: Eggplant Runner Build
 
 # Configure the trigger of your workflow
-on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+# on:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
 
 jobs:
   Run-Test-Config:
@@ -33,10 +33,9 @@ jobs:
       - name: Run Test Config
         uses: TestPlant/eggplant-github-action/actions/run-test-config@main
         with:
-          dryRun: true
-          serverURL: "http://localhost:8000"
-          testConfigID: "09c48b7d-fc5b-481d-af80-fcffad5d9587"
-          clientSecret: "e9c15662-8c1b-472e-930d-aa0b11726093"
+          serverURL: "" # Required. Details below
+          testConfigID: "" # Required. Details below
+          clientSecret: "" # Required. Details below
 ```
 
 ## Inputs
@@ -80,7 +79,7 @@ jobs:
 **Optional** The path to an alternative Certificate Authority pem file<br />
 
 ### `dryRun`
-**Optional** Dry Run mode validates the parameters without requiring a connection to a DAI server.<br />
+**Optional** Dry Run mode only validates the parameters without executing a test config run. It does not require a connection to the DAI server.<br />
 **Default:** `False`.
 
 
