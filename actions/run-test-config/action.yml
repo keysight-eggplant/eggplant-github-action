@@ -46,7 +46,7 @@ inputs:
     required: false
     default: false
   gitlabAccessToken:
-    description: "Personal Access Token to download CLI exe from GitLab Packages"
+    description: "Engineering/Development only: Personal Access Token to download CLI exe from GitLab Packages."
     required: false
 runs:
   using: "composite"
@@ -64,10 +64,8 @@ runs:
         if [ -n "${{ inputs.clientSecret }}" ]; then
           echo "DAI_CLIENT_SECRET=${{ inputs.clientSecret }}" >> $GITHUB_ENV
         fi
-        echo "CLI_VERSION=$CLI_VERSION" >> $GITHUB_ENV
       shell: bash
       env:
-        CLI_VERSION: 0.1
         DAI_VERSION: 6.1-ci
 
     - name: Download CLI
