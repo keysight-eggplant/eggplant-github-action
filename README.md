@@ -6,7 +6,7 @@ Eggplant Runner currently provides "Run Test Config" as its main action.
 
 ## Using run-test-config.yml in your workflow
 
-In order to use the Eggplant Runner with GitHub Actions, you need to add this to your GitHub Workflow:
+In order to use the Eggplant Runner with GitHub Actions, you need to add this to your GitHub Workflow .yml file:
 
 ```yaml
 name: Eggplant Runner Build
