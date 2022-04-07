@@ -31,7 +31,7 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Run Test Config
-        uses: TestPlant/eggplant-github-action/actions/run-test-config@main
+        uses: TestPlant/eggplant-github-action@main
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
