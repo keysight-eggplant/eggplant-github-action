@@ -17,8 +17,9 @@ jobs:
     name: Run Test Config
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
+      - uses: actions/checkout@main
       - name: Run Test Config
-        uses: actions/run-test-config@main
+        uses: ./actions/run-test-config
         with:
           dryRun: true
           clientID: "client:dai:agent:integration"
@@ -28,6 +29,3 @@ jobs:
           # alternatively, one could set a repo secret in GitHub Settings > Secrets > Actions
           # and refer to it like below.
           # clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"
-          
-          # for development usage only
-          gitlabAccessToken: "${{ secrets.GITLAB_ACCESS_TOKEN }}"
