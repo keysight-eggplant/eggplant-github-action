@@ -94,9 +94,3 @@ Hence, we can only do unilateral testing.
 
 
 3. Eggplant Runner supports these OS: Linux, Windows, MacOS.
-
-
-4. On referencing the action .yml script:
-    - You may reference our `run-test-config.yml` directly from your workflow .yml by defining the `uses` step as below:<br />
-    `uses: TestPlant/eggplant-github-action/actions/run-test-config@main`
-    - Or, you could also clone it to your own repository and point the `uses` step to it instead. This would also allow you to modify your own copy of the action script to your liking/needs.
