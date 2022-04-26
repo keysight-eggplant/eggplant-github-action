@@ -1,5 +1,5 @@
 name: "Run Test Config"
-description: "Triggers a test configuration run. Outputs 0(fail) or 1(success)."
+description: "Triggers a test configuration run. Outputs 0(fail) or 1(success)"
 inputs:
   serverURL:
     description: "The URL of the DAI server, e.g. http://localhost:8000"
