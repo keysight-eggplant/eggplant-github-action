@@ -4,12 +4,12 @@
 
 Eggplant Runner currently provides "Run DAI Test Configuration" as its main action.
 
-## Using action.yml in your workflow
+## Using Eggplant Runner GitHub Action in your workflow
 
-In order to use the Eggplant Runner with GitHub Actions, you need to add this to your GitHub Workflow .yml file:
+In order to use the Eggplant Runner GitHub Action, you need to add this to your GitHub Workflow .yml file:
 
 ```yaml
-name: Eggplant Runner Build
+name: Work flow pipeline
 
 # Configure the trigger of your workflow
 # on:
