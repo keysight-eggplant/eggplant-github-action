@@ -1,8 +1,10 @@
 <img src="https://www.eggplantsoftware.com/hubfs/Branding/Keysight-Eggplant-Logo_RGB_full-color.svg" width="300px"/>
 
-# Eggplant Runner in CI/CD with GitHub Actions
+# Eggplant DAI integration build as GitHub Action
 
-Eggplant Runner currently provides "Run Test Configuration" as its main action.
+## Introduction
+
+The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration build as GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing]
 
 ## Using Eggplant Runner GitHub Action in your workflow
 
