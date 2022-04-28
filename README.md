@@ -1,4 +1,4 @@
-[![Eggplant Runner Build](https://github.com/TestPlant/eggplant-github-action/actions/workflows/eggplant-runner-demo.yml/badge.svg)](https://github.com/TestPlant/eggplant-github-action/actions/workflows/eggplant-runner-demo.yml)
+<img src="https://www.eggplantsoftware.com/hubfs/Branding/Keysight-Eggplant-Logo_RGB_full-color.svg" width="300px"/>
 
 # Eggplant Runner in CI/CD with GitHub Actions
 
