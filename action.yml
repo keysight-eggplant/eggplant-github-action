@@ -1,4 +1,4 @@
-name: "Run DAI Test Configuration"
+name: "Run Test Config"
 description: "Triggers a test configuration run. Outputs 0(fail) or 1(success)"
 inputs:
   serverURL:
