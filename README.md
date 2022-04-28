@@ -2,7 +2,7 @@
 
 # Eggplant Runner in CI/CD with GitHub Actions
 
-Eggplant Runner currently provides "Run DAI Test Configuration" as its main action.
+Eggplant Runner currently provides "Run Test Configuration" as its main action.
 
 ## Using Eggplant Runner GitHub Action in your workflow
 
