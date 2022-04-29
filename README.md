@@ -6,7 +6,7 @@
 
 The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration build as GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
 
-## Using Eggplant Runner GitHub Action in your workflow
+## Using Eggplant DAI GitHub Action in your workflow
 
 In order to use the Eggplant DAI GitHub Action, you need to add this to your GitHub Workflow .yml file:
 
