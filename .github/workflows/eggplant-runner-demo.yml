@@ -8,23 +8,20 @@ on:
     branches:
       - main
 jobs:
-  Run-Test-Config:
+  Run-Test-Configuration:
     strategy:
       max-parallel: 1
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    name: Run Test Config
+    name: Run Test Configuration
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
-      - name: Run Test Configuration
+      - name: Eggplant DAI Runner
         uses: TestPlant/eggplant-github-action@main
         with:
           dryRun: true
           clientID: "client:dai:agent:integration"
-          serverURL: "https://foomunle-aub-12401-6.dai.webperfdev.com"
-          testConfigID: "ca4d845c-614e-49a0-9071-59811782abd2"
-          clientSecret: "e9c15662-8c1b-472e-930d-aa0b11726093"
-          # alternatively, one could set a repo secret in GitHub Settings > Secrets > Actions
-          # and refer to it like below.
-          # clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"
+          serverURL: "http://localhost:8080" # Egpplant DAI Server URL
+          testConfigID: "e9c15662-8c1b-472e-930d-aa0b11726093" # Test configuration which need to perform execution
+          clientSecret: "e9c15662-8c1b-472e-930d-aa0b11726093" # Eggplant DAI service client secret
