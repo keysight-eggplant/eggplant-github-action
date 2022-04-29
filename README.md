@@ -1,15 +1,26 @@
 <img src="https://www.eggplantsoftware.com/hubfs/Branding/Keysight-Eggplant-Logo_RGB_full-color.svg" width="300px"/>
 
-# Eggplant DAI GitHub Action
+# Eggplant DAI Runner 
 
 ## Introduction
 
-The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
+The Eggplant DAI Runner is an [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration tool that build as GitHub Action. It enables the functionality to launch DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
 
-## Using Eggplant DAI GitHub Action in your workflow
+## Using Eggplant DAI Runner in your workflow
 
-In order to use the Eggplant DAI GitHub Action, you need to add this to your GitHub Workflow .yml file:
+**Step 1**: Search for **Eggplant DAI Runner** in [GitHub Marketplace](https://github.com/marketplace?category=&query=&type=actions&verification=)
 
+![image](https://user-images.githubusercontent.com/101400930/165936757-deabc57d-f399-4134-a7b0-5bfe5e8a278c.png)
+
+**Step 2**: Click on **Use latest version**
+
+![image](https://user-images.githubusercontent.com/101400930/165936996-07f6517e-22c5-4edb-8dda-751a1d4809cf.png)
+
+**Step 3**: Copy and paste the following snippet into your .yml file. 
+
+![image](https://user-images.githubusercontent.com/101400930/165937331-3b72ff52-0444-4e97-ad7f-838888f4eabc.png)
+
+## Sample work flow YML content
 ```yaml
 name: "YOUR WORK FLOW NAME"
 
@@ -32,7 +43,7 @@ jobs:
     name: Run Test Configuration
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
-      - name: Run DAI Test Configugration
+      - name: Eggplant DAI Runner
         uses: TestPlant/eggplant-github-action@main
         with:
           serverURL: "" # Required. Details below
@@ -43,26 +54,26 @@ jobs:
 ## Inputs
 
 ### `serverURL`
-**Required** The URL of the DAI server, e.g. `http://localhost:8000`.
+**Required** The URL of the Eggplant DAI server, e.g. `http://localhost:8000`.
 
 ### `testConfigID`
-**Required** The ID of the test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
+**Required** The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
 
 ### `clientSecret`
-**Required** The client secret to use to authenticate with the DAI server, e.g. `e9c15662-8c1b-472e-930d-aa0b11726093`.<br />
+**Required** The client secret to use to authenticate with the Eggplant DAI server, e.g. `e9c15662-8c1b-472e-930d-aa0b11726093`.<br />
              Alternatively, you could set a repo secret in `Repo Settings > Secrets > Actions` and refer to it like below:<br />
              `clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"`.
              
 ### `clientID`
-**Optional** The client ID to use to authenticate with the DAI server.<br />
+**Optional** The client ID to use to authenticate with the Eggplant DAI server.<br />
 **Default:** `client:dai:agent:integration`
 
 ### `requestTimeout`
-**Optional** The timeout in seconds for each HTTP request to the DAI server<br />
+**Optional** The timeout in seconds for each HTTP request to the Eggplant DAI server<br />
 **Default:** `30`
 
 ### `requestRetries`
-**Optional** The number of times to attempt each HTTP request to the DAI server<br />
+**Optional** The number of times to attempt each HTTP request to the Eggplant DAI server<br />
 **Default:** `5`
 
 ### `backoffFactor`
@@ -70,7 +81,7 @@ jobs:
 **Default:** `0.5`
 
 ### `pollInterval`
-**Optional** The number of seconds to wait between each call to the DAI server<br />
+**Optional** The number of seconds to wait between each call to the Eggplant DAI server<br />
 **Default:** `5`
 
 ### `logLevel`
@@ -86,8 +97,15 @@ jobs:
 Reading: https://docs.github.com/en/actions/quickstart.
 
 
-2. On `strategy: max-parallel: 1`: SUT(System Under Test) is locked for one test config run at a time.<br />
+2. On `strategy: max-parallel: 1`: SUT(System Under Test) is locked for one Eggplant DAI test configuration run at a time.<br />
 Hence, we can only do unilateral testing.
 
 
-3. Eggplant Runner supports these OS: Linux, Windows, MacOS.
+3. Eggplant DAI Runner supports 3 type of operating system: 
+ - Linux
+ - Windows
+ - MacOS
+
+# License
+
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
