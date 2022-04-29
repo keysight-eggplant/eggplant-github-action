@@ -1,26 +1,26 @@
-name: "Run DAI Test Configuration"
-description: "Triggers a test configuration run. Outputs 0(fail) or 1(success)"
+name: "Eggplant DAI Runner"
+description: "Triggers a run from DAI test configuration."
 inputs:
   serverURL:
-    description: "The URL of the DAI server, e.g. http://localhost:8000"
+    description: "The URL of Eggplant DAI server, e.g. http://localhost:8000"
     required: true
   testConfigID:
-    description: "The ID of the test config that you want to run, e.g. 09c48b7d-fc5b-481d-af80-fcffad5d9587"
+    description: "The ID of the Eggplant DAI test configuration that you want to run, e.g. 09c48b7d-fc5b-481d-af80-fcffad5d9587"
     required: true
   clientID:
-    description: "The client ID to use to authenticate with the DAI server  [default: client:dai:agent:integration]"
+    description: "The client ID to use to authenticate with the Eggplant DAI server  [default: client:dai:agent:integration]"
     required: false
     default: "client:dai:agent:integration"
   clientSecret:
-    description: "The client secret to use to authenticate with the DAI server  [env var: DAI_CLIENT_SECRET; required]"
+    description: "The client secret to use to authenticate with the Eggplant DAI server  [env var: DAI_CLIENT_SECRET; required]"
     required: false
   requestTimeout:
-    description: "The timeout in seconds for each HTTP request to the DAI server  [default: 30]"
+    description: "The timeout in seconds for each HTTP request to the Eggplant DAI server  [default: 30]"
     required: false
     type: integer
     default: 30
   requestRetries:
-    description: "The number of times to attempt each HTTP request to the DAI server  [default: 5]"
+    description: "The number of times to attempt each HTTP request to the Eggplant DAI server  [default: 5]"
     required: false
     type: integer
     default: 5
@@ -30,7 +30,7 @@ inputs:
     type: float
     default: 0.5
   pollInterval:
-    description: "The number of seconds to wait between each call to the DAI server  [default: 5]"
+    description: "The number of seconds to wait between each call to the Eggplant DAI server  [default: 5]"
     required: false
     type: integer
     default: 5
@@ -83,12 +83,12 @@ runs:
         fi
       shell: bash
 
-    - name: Set permissions on CLI executable
+    - name: Set permissions on Eggplant runner executable
       run: |
         chmod 0755 $CLI_FILENAME
       shell: bash
       
-    - name: Run Test Config
+    - name: Run Eggplant DAI Test Configuration
       run: |
         COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
         
