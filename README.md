@@ -1,10 +1,10 @@
 <img src="https://www.eggplantsoftware.com/hubfs/Branding/Keysight-Eggplant-Logo_RGB_full-color.svg" width="300px"/>
 
-# Eggplant DAI integration build as GitHub Action
+# Eggplant DAI GitHub Action
 
 ## Introduction
 
-The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration build as GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
+The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
 
 ## Using Eggplant DAI GitHub Action in your workflow
 
