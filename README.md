@@ -1,36 +1,38 @@
-[![Eggplant Runner Build](https://github.com/TestPlant/eggplant-github-action/actions/workflows/eggplant-runner-demo.yml/badge.svg)](https://github.com/TestPlant/eggplant-github-action/actions/workflows/eggplant-runner-demo.yml)
+<img src="https://www.eggplantsoftware.com/hubfs/Branding/Keysight-Eggplant-Logo_RGB_full-color.svg" width="300px"/>
 
-# Eggplant Runner in CI/CD with GitHub Actions
+# Eggplant DAI GitHub Action
 
-Eggplant Runner currently provides "Run Test Config" as its main action.
+## Introduction
 
-## Using run-test-config.yml in your workflow
+The [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) GitHub Action are able to launches DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
 
-In order to use the Eggplant Runner with GitHub Actions, you need to add this to your GitHub Workflow .yml file:
+## Using Eggplant DAI GitHub Action in your workflow
+
+In order to use the Eggplant DAI GitHub Action, you need to add this to your GitHub Workflow .yml file:
 
 ```yaml
-name: Eggplant Runner Build
+name: "YOUR WORK FLOW NAME"
 
-# Configure the trigger of your workflow
+# Configure which branch that will trigger Eggplant DAI GitHub Action
 # on:
 #  push:
 #    branches:
-#      - main
+#      - main 
 #  pull_request:
 #    branches:
 #      - main
 
 jobs:
-  Run-Test-Config:
-    strategy:
-      max-parallel: 1
+  Run-DAI-Test-Configuration:
+    strategy: # Optional configuration by using matrix strategy
+      max-parallel: 1 # To set the maximum number of jobs that can run simultaneously 
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    name: Run Test Config
+        os: [ubuntu-latest, windows-latest, macos-latest] # Operating support by Eggplant DAI GitHub Action
+    runs-on: ${{ matrix.os }} # Provide OS matrix
+    name: Run Test Configuration
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
-      - name: Run Test Config
+      - name: Run DAI Test Configugration
         uses: TestPlant/eggplant-github-action@main
         with:
           serverURL: "" # Required. Details below
@@ -44,7 +46,7 @@ jobs:
 **Required** The URL of the DAI server, e.g. `http://localhost:8000`.
 
 ### `testConfigID`
-**Required** The ID of the test config that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
+**Required** The ID of the test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
 
 ### `clientSecret`
 **Required** The client secret to use to authenticate with the DAI server, e.g. `e9c15662-8c1b-472e-930d-aa0b11726093`.<br />
@@ -77,11 +79,6 @@ jobs:
 
 ### `CACertPath`
 **Optional** The path to an alternative Certificate Authority pem file<br />
-
-### `dryRun`
-**Optional** Dry Run mode only validates the parameters without executing a test config run. It does not require a connection to the DAI server.<br />
-**Default:** `False`.
-
 
 ## Notes
 
