@@ -91,6 +91,17 @@ jobs:
 ### `CACertPath`
 **Optional** The path to an alternative Certificate Authority pem file<br />
 
+## Output
+### Pipeline triggered
+Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
+
+![image](https://user-images.githubusercontent.com/101400930/165939235-3f1f5ecd-8242-450d-918e-dbeb9f6f4b15.png)
+
+### Console output
+![image](https://user-images.githubusercontent.com/101400930/165939424-d096cb17-b93a-428d-a36f-a2174eef2215.png)
+
+
+
 ## Notes
 
 1. This workflow .yml file needs to in the `.github/workflows` directory in your repository on GitHub.<br />
