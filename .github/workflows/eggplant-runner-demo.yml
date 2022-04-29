@@ -17,7 +17,7 @@ jobs:
     name: Run Test Config
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
-      - name: Run Test Config
+      - name: Run Test Configuration
         uses: TestPlant/eggplant-github-action@main
         with:
           dryRun: true
