@@ -12,15 +12,14 @@ The core integration of the **Eggplant DAI Runner** are with [**DAI Test Configu
 
 **Step 1**: Search for **Eggplant DAI Runner** in [GitHub Marketplace](https://github.com/marketplace?category=&query=&type=actions&verification=)
 
-![image](https://user-images.githubusercontent.com/101400930/165936757-deabc57d-f399-4134-a7b0-5bfe5e8a278c.png)
+![image](https://user-images.githubusercontent.com/101400930/168304794-3030bc5e-d62c-4341-912e-6ff7e26da9a6.png)
 
 **Step 2**: Click on **Use latest version**
-
-![image](https://user-images.githubusercontent.com/101400930/165936996-07f6517e-22c5-4edb-8dda-751a1d4809cf.png)
+![image](https://user-images.githubusercontent.com/101400930/168304958-ed1e07b9-6738-42f8-a2e4-e8fa761daedb.png)
 
 **Step 3**: Copy and paste the following snippet into your .yml file. 
 
-![image](https://user-images.githubusercontent.com/101400930/165937331-3b72ff52-0444-4e97-ad7f-838888f4eabc.png)
+![image](https://user-images.githubusercontent.com/101400930/168304923-99f6ae4b-e455-4cb1-89f1-7121472f0616.png)
 
 ## Sample work flow YML content
 ```yaml
