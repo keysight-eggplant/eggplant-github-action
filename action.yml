@@ -1,4 +1,4 @@
-name: "Eggplant DAI Runner"
+name: "Eggplant Runner"
 description: "Triggers a run from DAI test configuration."
 inputs:
   serverURL:
