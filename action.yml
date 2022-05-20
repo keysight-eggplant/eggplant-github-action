@@ -69,13 +69,13 @@ runs:
         fi
       shell: bash
       env:
-        DAI_VERSION: 6.1-ci
+        DAI_VERSION: 6.1-2-1
 
     - name: Download CLI
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/6.1-ci-cd/0.0.0/$CLI_FILENAME"
+          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/6.1-2-1/0.0.0/$CLI_FILENAME"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
