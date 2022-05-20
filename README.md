@@ -44,8 +44,8 @@ jobs:
     name: Run Test Configuration
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
-      - name: Eggplant DAI Runner
-        uses: TestPlant/eggplant-github-action@main
+      - name: Eggplant Runner
+        uses: TestPlant/eggplant-github-action@1.0.0
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
