@@ -18,7 +18,7 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Eggplant Runner
-        uses: TestPlant/eggplant-github-action@main
+        uses: TestPlant/eggplant-github-action@v1.0.0
         with:
           dryRun: true
           clientID: "client:dai:agent:integration"
