@@ -105,8 +105,7 @@ runs:
           if [ ${{ inputs.dryRun }} == true ]; then
             COMMANDSTR+=" --dry-run"
           fi
-
-            echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
+          echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
           ./$CLI_FILENAME $COMMANDSTR
         fi
        shell: bash
