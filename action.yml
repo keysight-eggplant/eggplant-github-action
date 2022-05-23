@@ -93,19 +93,16 @@ runs:
       
     - name: Run Eggplant DAI Test Configuration
       run: |
-        if [ -n "${{ inputs.testConfigID }}" ]; then
-          echo "Missing Server URL"
-        else
-          COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
-
-          if [ -n "${{ inputs.CACertPath }}" ]; then
-            COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
-          fi
-
-          if [ ${{ inputs.dryRun }} == true ]; then
-            COMMANDSTR+=" --dry-run"
-          fi
-          echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
-          ./$CLI_FILENAME $COMMANDSTR
+        COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
+        
+        if [ -n "${{ inputs.CACertPath }}" ]; then
+          COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
         fi
-       shell: bash
+        
+        if [ ${{ inputs.dryRun }} == true ]; then
+          COMMANDSTR+=" --dry-run"
+        fi
+        
+        echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
+        ./$CLI_FILENAME $COMMANDSTR
+      shell: bash
