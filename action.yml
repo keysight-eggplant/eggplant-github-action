@@ -106,6 +106,7 @@ runs:
             COMMANDSTR+=" --dry-run"
           fi
 
-          echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
-        ./$CLI_FILENAME $COMMANDSTR
-      shell: bash
+            echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
+          ./$CLI_FILENAME $COMMANDSTR
+        fi
+       shell: bash
