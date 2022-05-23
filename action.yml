@@ -93,9 +93,7 @@ runs:
       
     - name: Run Eggplant DAI Test Configuration
       run: |
-        if [ -n "${{ inputs.serverURL }}" ]; then
-          echo "Missing Server URL"
-        fi
+        [[ "${{ inputs.serverURL }}" ]] || { echo "server URL are empty" ; exit 1; }
         COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
         
         if [ -n "${{ inputs.CACertPath }}" ]; then
