@@ -21,7 +21,7 @@ jobs:
         uses: TestPlant/eggplant-github-action@main
         with:
           dryRun: true
-          serverURL: "http://localhost:8000/"
+          serverURL: " "
           clientID: "client:dai:agent:integration"
           testConfigID: "e9c15662-8c1b-472e-930d-aa0b11726093" # Test configuration which need to perform execution
           clientSecret: "e9c15662-8c1b-472e-930d-aa0b11726093" # Eggplant DAI service client secret
