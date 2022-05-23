@@ -60,7 +60,7 @@ jobs:
 ### `testConfigID`
 **Required** The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
 Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
-![image](https://user-images.githubusercontent.com/101400930/165948106-3bcac6b6-194a-468c-84ab-b1ea619d90de.png)
+![image](https://user-images.githubusercontent.com/101400930/169785982-73302f9a-29a8-4438-b9b1-a58976ce5103.png)
 
 
 ### `clientSecret`
