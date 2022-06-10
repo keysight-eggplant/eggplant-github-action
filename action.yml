@@ -51,7 +51,6 @@ inputs:
   gitlabAccessToken:
     description: "Engineering/Development only: Personal Access Token to download CLI exe from GitLab Packages."
     required: false
-  
 branding:
   icon: 'chevron-right'  
   color: 'purple'
