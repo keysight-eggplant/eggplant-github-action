@@ -41,6 +41,9 @@ inputs:
   CACertPath:
     description: "The path to an alternative Certificate Authority pem file"
     required: false
+  testResultPath:
+    description: "Location to store the test results generated from test configuration execution"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -95,10 +98,16 @@ runs:
       run: |
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
+        [[ "${{ inputs.testResultPath }}" ]] || { echo "Error: Missing test result path" ; exit 1; }
+        [[ "${{ inputs.testResultPath }}" = *[!\ ]*  ]] || { echo "Error: Test result path consists of empty spaces only." ; exit 1; }
         COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
         
         if [ -n "${{ inputs.CACertPath }}" ]; then
           COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
+        fi
+
+        if [ -n "${{ inputs.testResultPath }}" ]; then
+          COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
         fi
         
         if [ ${{ inputs.dryRun }} == true ]; then
@@ -108,3 +117,4 @@ runs:
         echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
         ./$CLI_FILENAME $COMMANDSTR
       shell: bash
+
