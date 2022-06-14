@@ -41,6 +41,9 @@ inputs:
   CACertPath:
     description: "The path to an alternative Certificate Authority pem file"
     required: false
+  testResultPath:
+    description: "Location to store the test results generated from test configuration execution"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
