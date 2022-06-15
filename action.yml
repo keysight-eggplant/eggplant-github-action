@@ -9,11 +9,11 @@ inputs:
     required: true
   clientID:
     description: "The client ID to use to authenticate with the Eggplant DAI server  [default: client:dai:agent:integration]"
-    required: false
+    required: true
     default: "client:dai:agent:integration"
   clientSecret:
     description: "The client secret to use to authenticate with the Eggplant DAI server  [env var: DAI_CLIENT_SECRET; required]"
-    required: false
+    required: true
   requestTimeout:
     description: "The timeout in seconds for each HTTP request to the Eggplant DAI server  [default: 30]"
     required: false
