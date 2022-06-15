@@ -41,6 +41,9 @@ inputs:
   CACertPath:
     description: "The path to an alternative Certificate Authority pem file"
     required: false
+  testResultPath:
+    description: "Location to store the test results generated from test configuration execution"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -99,6 +102,11 @@ runs:
         
         if [ -n "${{ inputs.CACertPath }}" ]; then
           COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
+        fi
+        
+        if [ -n "${{ inputs.testResultPath }}" ]; then
+          [[ "${{ inputs.testResultPath }}" = *[!\ ]*  ]] || { echo "Error: Test result path consists of empty spaces only." ; exit 1; }
+          COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
         fi
         
         if [ ${{ inputs.dryRun }} == true ]; then
