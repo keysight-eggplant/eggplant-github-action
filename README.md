@@ -98,6 +98,9 @@ The **DAI Client Secret** can be obtain by go to http://kc-localhost:8000/auth >
 ### `CACertPath`
 **Optional** The path to an alternative Certificate Authority pem file<br />
 
+### `testResultPath`
+**Optional** The path to store the test results generated from test configuration execution<br />
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
