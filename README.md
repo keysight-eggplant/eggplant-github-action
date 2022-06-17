@@ -19,7 +19,7 @@ The core integration of the **Eggplant DAI Runner** are with [**DAI Test Configu
 
 **Step 3**: Copy and paste the following snippet into your .yml file. 
 
-![image](https://user-images.githubusercontent.com/101400930/168304923-99f6ae4b-e455-4cb1-89f1-7121472f0616.png)
+![image](https://user-images.githubusercontent.com/101400930/174241940-fbefd241-12e9-4f03-b6c4-d8547396e80a.png)
 
 ## Sample work flow YML content
 ```yaml
@@ -45,7 +45,7 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Eggplant Runner
-        uses: TestPlant/eggplant-github-action@1.0.0
+        uses: keysight-eggplant/eggplant-github-action@1.0.0
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
