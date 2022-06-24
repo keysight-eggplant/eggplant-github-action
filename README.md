@@ -12,14 +12,14 @@ The core integration of the **Eggplant DAI Runner** are with [**DAI Test Configu
 
 **Step 1**: Search for **Eggplant DAI Runner** in [GitHub Marketplace](https://github.com/marketplace?category=&query=&type=actions&verification=)
 
-![image](https://user-images.githubusercontent.com/101400930/168304794-3030bc5e-d62c-4341-912e-6ff7e26da9a6.png)
+![image](https://user-images.githubusercontent.com/101400930/174242174-8aa9fba1-52e2-4016-a8a0-4d7998d07f6d.png)
 
 **Step 2**: Click on **Use latest version**
 ![image](https://user-images.githubusercontent.com/101400930/168304958-ed1e07b9-6738-42f8-a2e4-e8fa761daedb.png)
 
 **Step 3**: Copy and paste the following snippet into your .yml file. 
 
-![image](https://user-images.githubusercontent.com/101400930/168304923-99f6ae4b-e455-4cb1-89f1-7121472f0616.png)
+![image](https://user-images.githubusercontent.com/101400930/174241940-fbefd241-12e9-4f03-b6c4-d8547396e80a.png)
 
 ## Sample work flow YML content
 ```yaml
@@ -45,7 +45,7 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Eggplant Runner
-        uses: TestPlant/eggplant-github-action@1.0.0
+        uses: keysight-eggplant/eggplant-github-action@1.0.0
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
