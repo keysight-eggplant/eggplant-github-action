@@ -108,7 +108,7 @@ runs:
         fi
         
         if [ -n "${{ inputs.testResultPath }}" ]; then
-          if [ ! -d "${{ inputs.testResultPath }}" ] || [ "${{ inputs.testResultPath }}" = *[!\ ]*  ] || [ "${{ inputs.testResultPath }}" != *.xml ]; then
+          if [ "${{ inputs.testResultPath }}" = *[!\ ]*  ] || [ "${{ inputs.testResultPath }}" != *.xml ]; then
             echo "Error: Invalid Test Result Path";  exit 1; 
           fi
           COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
