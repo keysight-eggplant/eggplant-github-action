@@ -78,7 +78,7 @@ runs:
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/6.2.1-0/0.0.0/$CLI_FILENAME"
+          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/AUB-13519_CICD_Junit_file_implementation/0.0.0/eggplant-runner-Windows-aub-13519_cicd_junit_file_implementation.exe"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
