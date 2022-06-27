@@ -101,7 +101,7 @@ runs:
         COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --log-level=${{ inputs.logLevel }}"
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
-          if [ ! -e "${{ inputs.CACertPath }}" ] && [ "${{ inputs.CACertPath }}" != *.cer ]; then
+          if [ ! -e "${{ inputs.CACertPath }}" ] || [ "${{ inputs.CACertPath }}" != *.cer ]; then
             echo "Error: Invalid CA Cert Path";  exit 1; 
           fi
           COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
