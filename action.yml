@@ -41,9 +41,6 @@ inputs:
   CACertPath:
     description: "The path to an alternative Certificate Authority pem file"
     required: false
-  testResultPath:
-    description: "Location to store the test results generated from test configuration execution"
-    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -105,13 +102,6 @@ runs:
             echo "Error: Invalid CA Cert Path";  exit 1; 
           fi
           COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
-        fi
-        
-        if [ -n "${{ inputs.testResultPath }}" ]; then
-          if [ "${{ inputs.testResultPath }}" = *[!\ ]*  ] || [[ "${{ inputs.testResultPath }}" != *.xml ]]; then
-            echo "Error: Invalid Test Result Path";  exit 1; 
-          fi
-          COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
         fi
         
         if [ ${{ inputs.dryRun }} == true ]; then
