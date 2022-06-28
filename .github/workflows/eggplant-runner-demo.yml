@@ -18,13 +18,14 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Eggplant Runner
-        uses: keysight-eggplant/eggplant-github-action@main
+        uses: keysight-eggplant/eggplant-github-action@Testing
         with:
           dryRun: true
           serverURL: "http://localhost:8000"
           clientID: "client:dai:agent:integration"
           testConfigID: "e9c15662-8c1b-472e-930d-aa0b11726093" # Test configuration which need to perform execution
           clientSecret: "e9c15662-8c1b-472e-930d-aa0b11726093" # Eggplant DAI service client secret
+          testResultPath: "ccc/c?/a.xml"
           # Alternatively, DAI client secret can be set as repo secret
           # by going to GitHub Settings > Secrets > Actions
           # clientSecret: "${{secrets.DAI_CLIENT_SECRET}}"
