@@ -78,18 +78,18 @@ runs:
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
+          # Reason breaking into ENG_BRANCH & ENG_EXEC_NAME is because, executable has be default to small letter. 
+          # As for the Branch name will follow branching name define by developer
           ENG_BRANCH="AUB-13519_CICD_Junit_file_implementation"
           ENG_EXEC_NAME="aub-13519_cicd_junit_file_implementation"
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "CLI_FILENAME=eggplant-runner-Windows-$ENG_EXEC_NAME.exe" >> $GITHUB_ENV
             ENG_FILE_NAME="eggplant-runner-Windows-$ENG_EXEC_NAME.exe"
           elif [ "$RUNNER_OS" == "Linux" ]; then
-            echo "CLI_FILENAME=eggplant-runner-Linux-$ENG_EXEC_NAME" >> $GITHUB_ENV
             ENG_FILE_NAME="eggplant-runner-Linux-$ENG_EXEC_NAME"
           elif [ "$RUNNER_OS" == "macOS" ]; then
-            echo "CLI_FILENAME=eggplant-runner-MacOS-$ENG_EXEC_NAME" >> $GITHUB_ENV
             ENG_FILE_NAME="eggplant-runner-MacOS-$ENG_EXEC_NAME"
-          fi          
+          fi
+          echo "CLI_FILENAME=$ENG_FILE_NAME" >> $GITHUB_ENV
           DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_BRANCH/0.0.0/$ENG_FILE_NAME"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $ENG_FILE_NAME
