@@ -59,9 +59,6 @@ runs:
   steps:
     - name: Setup environment variables
       run: |
-        if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
-          echo "$DAI_VERSION=$ENG_VERSION" >> $GITHUB_ENV
-        fi
         if [ "$RUNNER_OS" == "Windows" ]; then
           echo "CLI_FILENAME=eggplant-runner-Windows-$DAI_VERSION.exe" >> $GITHUB_ENV  
         elif [ "$RUNNER_OS" == "Linux" ]; then
@@ -76,13 +73,20 @@ runs:
       shell: bash
       env:
         DAI_VERSION: 6.2.1-1
-        ENG_VERSION: aub-13519_cicd_junit_file_implementation
 
     - name: Download CLI
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$DAI_VERSION/0.0.0/$CLI_FILENAME"
+          ENG_VERSION="aub-13519_cicd_junit_file_implementation"
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "CLI_FILENAME=eggplant-runner-Windows-$ENG_VERSION.exe" >> $GITHUB_ENV  
+          elif [ "$RUNNER_OS" == "Linux" ]; then
+            echo "CLI_FILENAME=eggplant-runner-Linux-$ENG_VERSION" >> $GITHUB_ENV
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            echo "CLI_FILENAME=eggplant-runner-MacOS-$ENG_VERSIONn" >> $GITHUB_ENV
+          fi
+          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$$ENG_VERSION/0.0.0/$CLI_FILENAME"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
