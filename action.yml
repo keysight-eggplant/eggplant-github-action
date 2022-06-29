@@ -89,7 +89,7 @@ runs:
             echo "CLI_FILENAME=eggplant-runner-MacOS-$ENG_VERSION" >> $GITHUB_ENV
             CLI_ENG_FILENAME="eggplant-runner-MacOS-$ENG_VERSION"
           fi
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_VERSION/0.0.0/$CLI_ENG_FILENAME"
+          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/aub-13519_cicd_junit_file_implementation/0.0.0/eggplant-runner-Linux-aub-13519_cicd_junit_file_implementation"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
