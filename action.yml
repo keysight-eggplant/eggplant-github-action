@@ -78,18 +78,18 @@ runs:
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          ENG_VERSION="aub-13519_cicd_junit_file_implementation"
+          ENG_VERSION="AUB-13519_CICD_Junit_file_implementation"
           if [ "$RUNNER_OS" == "Windows" ]; then
             echo "CLI_FILENAME=eggplant-runner-Windows-$ENG_VERSION.exe" >> $GITHUB_ENV
-            CLI_ENG_FILENAME="eggplant-runner-Windows-$ENG_VERSION.exe" 
+            CLI_ENG_FILENAME="eggplant-runner-Windows-aub-13519_cicd_junit_file_implementation.exe" 
           elif [ "$RUNNER_OS" == "Linux" ]; then
             echo "CLI_FILENAME=eggplant-runner-Linux-$ENG_VERSION" >> $GITHUB_ENV
-            CLI_ENG_FILENAME="eggplant-runner-Linux-$ENG_VERSION"
+            CLI_ENG_FILENAME="eggplant-runner-Linux-aub-13519_cicd_junit_file_implementation"
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "CLI_FILENAME=eggplant-runner-MacOS-$ENG_VERSION" >> $GITHUB_ENV
-            CLI_ENG_FILENAME="eggplant-runner-MacOS-$ENG_VERSION"
+            CLI_ENG_FILENAME="eggplant-runner-MacOS-aub-13519_cicd_junit_file_implementation"
           fi
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/aub-13519_cicd_junit_file_implementation/0.0.0/eggplant-runner-Linux-aub-13519_cicd_junit_file_implementation"
+          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_VERSION/0.0.0/$CLI_ENG_FILENAME"
           echo "Downloading $DOWNLOADURL..."
           curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
         else
