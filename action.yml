@@ -78,8 +78,8 @@ runs:
       run: |
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
-          ENG_BRANCH = "AUB-13519_CICD_Junit_file_implementation"
-          ENG_EXEC_NAME ="aub-13519_cicd_junit_file_implementation"
+          ENG_BRANCH="AUB-13519_CICD_Junit_file_implementation"
+          ENG_EXEC_NAME="aub-13519_cicd_junit_file_implementation"
           if [ "$RUNNER_OS" == "Windows" ]; then
             echo "CLI_FILENAME=eggplant-runner-Windows-$ENG_EXEC_NAME.exe" >> $GITHUB_ENV
             ENG_FILE_NAME="eggplant-runner-Windows-$ENG_EXEC_NAME.exe"
