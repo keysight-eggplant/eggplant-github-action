@@ -92,7 +92,7 @@ runs:
           fi          
           DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_BRANCH/0.0.0/$ENG_FILE_NAME"
           echo "Downloading $DOWNLOADURL..."
-          curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $CLI_FILENAME
+          curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $ENG_FILE_NAME
         else
           # Public URL download
           DOWNLOADURL="https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$CLI_FILENAME"
