@@ -85,10 +85,10 @@ runs:
             ENG_FILE_NAME="eggplant-runner-Windows-$ENG_EXEC_NAME.exe"
           elif [ "$RUNNER_OS" == "Linux" ]; then
             echo "CLI_FILENAME=eggplant-runner-Linux-$ENG_EXEC_NAME" >> $GITHUB_ENV
-            ENG_FILE_NAME="eggplant-runner-Linux-$ENG_EXEC_NAME.exe"
+            ENG_FILE_NAME="eggplant-runner-Linux-$ENG_EXEC_NAME"
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "CLI_FILENAME=eggplant-runner-MacOS-$ENG_EXEC_NAME" >> $GITHUB_ENV
-            ENG_FILE_NAME="eggplant-runner-MacOS-$ENG_EXEC_NAME.exe"
+            ENG_FILE_NAME="eggplant-runner-MacOS-$ENG_EXEC_NAME"
           fi          
           DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_BRANCH/0.0.0/$ENG_FILE_NAME"
           echo "Downloading $DOWNLOADURL..."
