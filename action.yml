@@ -97,7 +97,9 @@ runs:
             echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
           echo "Fetching runner from ${{ inputs.eggplantRunnerPath }}"
-          cp "${{ inputs.eggplantRunnerPath }}" .
+          CLI_DIR="$RUNNER_TEMP/downloads"
+          cp "${{ inputs.eggplantRunnerPath }}" $CLI_DIR
+          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
           echo "Fetch complete."
       shell: bash
 
@@ -121,6 +123,7 @@ runs:
           CLI_DIR="$RUNNER_TEMP/downloads"
           if [ -f "$CLI_DIR/$CLI_FILENAME" ]; then
             echo "Runner found in default directory, skipping download."
+            echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
           else
             # Public URL download
             mkdir -p "$CLI_DIR"
