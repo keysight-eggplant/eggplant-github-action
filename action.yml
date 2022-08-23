@@ -105,26 +105,39 @@ runs:
       if: ${{ inputs.eggplantRunnerPath == null }}
       run: |     
         echo ">> Downloading runner..."
-        code=0
         if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
           # Engineering URL download
+          CLI_DIR="$RUNNER_TEMP/downloads/eng"
+          mkdir -p "$CLI_DIR"
           DOWNLOAD_URL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$DAI_VERSION/0.0.0/$CLI_FILENAME"
           echo "Downloading $DOWNLOAD_URL..."
-          code="$(curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" --output $CLI_FILENAME  --write-out %{http_code} --silent $DOWNLOAD_URL)"
-        else
-          # Public URL download
-          echo "Downloading $DOWNLOAD_URL..."
-          code="$(curl -L $DOWNLOAD_URL --write-out %{http_code} --silent --output $CLI_FILENAME )"
+          code="$(curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" --output "$CLI_DIR/$CLI_FILENAME"  --write-out %{http_code} --silent $DOWNLOAD_URL)"
+          if [ $code -ne 200 ]; then
+            echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
+          fi
+          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "Download successfully."
+         else
+          CLI_DIR="$RUNNER_TEMP/downloads"
+          if [ -f "$CLI_DIR/$CLI_FILENAME" ]; then
+            echo "Runner found in default directory, skipping download."
+          else
+            # Public URL download
+            mkdir -p "$CLI_DIR"
+            echo "Downloading $DOWNLOAD_URL..."
+            code="$(curl -L $DOWNLOAD_URL --write-out %{http_code} --silent --output "$CLI_DIR/$CLI_FILENAME" )"
+            if [ $code -ne 200 ]; then
+              echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
+            fi
+            echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+            echo "Download successfully."
+          fi
         fi
-        if [ $code -ne 200 ]; then
-          echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
-        fi
-        echo "Download successfully."
       shell: bash
         
     - name: Set permissions on Eggplant runner executable
       run: |
-        chmod 0755 $CLI_FILENAME
+        chmod 0755 $CLI_PATH
       shell: bash
       
     - name: Run Eggplant DAI Test Configuration
@@ -151,6 +164,6 @@ runs:
           COMMANDSTR+=" --dry-run"
         fi
         
-        echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
-        ./$CLI_FILENAME $COMMANDSTR
+        echo "Executing: $CLI_PATH $COMMANDSTR"
+        "$CLI_PATH" $COMMANDSTR
       shell: bash
