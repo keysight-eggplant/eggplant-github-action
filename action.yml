@@ -68,9 +68,9 @@ runs:
         if [ "$RUNNER_OS" == "Windows" ]; then
           EXE_FILENAME=eggplant-runner-Windows-$EXE_VERSION.exe
         elif [ "$RUNNER_OS" == "Linux" ]; then
-          EXE_FILENAME=eggplant-runner-Linux-$EXE_VERSION"
+          EXE_FILENAME=eggplant-runner-Linux-$EXE_VERSION
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          EXE_FILENAME=eggplant-runner-MacOS-$EXE_VERSION"
+          EXE_FILENAME=eggplant-runner-MacOS-$EXE_VERSION
         else
           echo "Unexpected OS: $RUNNER_OS";exit 1;
         fi
