@@ -1,3 +1,4 @@
+
 name: "Eggplant Runner"
 description: "Triggers a run from DAI test configuration."
 inputs:
@@ -44,6 +45,9 @@ inputs:
   testResultPath:
     description: "Location to store the test results generated from test configuration execution"
     required: false
+  eggplantRunnerPath:
+    description: "The path to eggplant runner CLI executable"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -59,51 +63,84 @@ runs:
   steps:
     - name: Setup environment variables
       run: |
+        EXE_VERSION="$(echo "$DAI_VERSION" | tr [:upper:] [:lower:])"
+        EXE_FILENAME=""
         if [ "$RUNNER_OS" == "Windows" ]; then
-          echo "CLI_FILENAME=eggplant-runner-Windows-$DAI_VERSION.exe" >> $GITHUB_ENV  
+          EXE_FILENAME=eggplant-runner-Windows-$EXE_VERSION.exe
         elif [ "$RUNNER_OS" == "Linux" ]; then
-          echo "CLI_FILENAME=eggplant-runner-Linux-$DAI_VERSION" >> $GITHUB_ENV
+          EXE_FILENAME=eggplant-runner-Linux-$EXE_VERSION
         elif [ "$RUNNER_OS" == "macOS" ]; then
-          echo "CLI_FILENAME=eggplant-runner-MacOS-$DAI_VERSION" >> $GITHUB_ENV
+          EXE_FILENAME=eggplant-runner-MacOS-$EXE_VERSION
+        else
+          echo "Unexpected OS: $RUNNER_OS";exit 1;
         fi
-        
         if [ -n "${{ inputs.clientSecret }}" ]; then
           echo "DAI_CLIENT_SECRET=${{ inputs.clientSecret }}" >> $GITHUB_ENV
         fi
+        echo "CLI_FILENAME=$EXE_FILENAME" >> $GITHUB_ENV
+        echo "DAI_VERSION=$DAI_VERSION" >> $GITHUB_ENV
+        echo "DOWNLOAD_URL=https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 6.2.1-2
+        DAI_VERSION: 6.2.1-2 # AUB-13519_CICD_Junit_file_implementation
 
-    - name: Download CLI
-      run: |
-        if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
-          # Engineering URL download
-          # Reason breaking into ENG_BRANCH & ENG_EXEC_NAME is because, executable has be default to small letter. 
-          # As for the Branch name will follow branching name define by developer
-          ENG_BRANCH="AUB-13519_CICD_Junit_file_implementation"
-          ENG_EXEC_NAME="aub-13519_cicd_junit_file_implementation"
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            ENG_FILE_NAME="eggplant-runner-Windows-$ENG_EXEC_NAME.exe"
-          elif [ "$RUNNER_OS" == "Linux" ]; then
-            ENG_FILE_NAME="eggplant-runner-Linux-$ENG_EXEC_NAME"
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-            ENG_FILE_NAME="eggplant-runner-MacOS-$ENG_EXEC_NAME"
+    - name: Fetch CLI
+      if: ${{ inputs.eggplantRunnerPath }}
+      run: |     
+          echo ">> Checking runner..."
+          [[ "${{ inputs.eggplantRunnerPath }}" = *[!\ ]*  ]] || [[ "${{ inputs.eggplantRunnerPath }}" = *[\?\"\*\<\>\|]*  ]] || { echo "Error: Invalid Eggplant Runner Path" ; exit 1; }
+          [ ! -r "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: No such file or permission denied. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
+          [ -d "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: Path provided must not be a directory. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
+         
+          filename=$(basename "${{ inputs.eggplantRunnerPath }}")
+          if [[ "$filename" != "$CLI_FILENAME" ]]; then
+            echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
-          echo "CLI_FILENAME=$ENG_FILE_NAME" >> $GITHUB_ENV
-          DOWNLOADURL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$ENG_BRANCH/0.0.0/$ENG_FILE_NAME"
-          echo "Downloading $DOWNLOADURL..."
-          curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" "$DOWNLOADURL" --output $ENG_FILE_NAME
-        else
-          # Public URL download
-          DOWNLOADURL="https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$CLI_FILENAME"
-          echo "Downloading $DOWNLOADURL..."
-          curl -L $DOWNLOADURL --output $CLI_FILENAME
-        fi
+          echo "Fetching runner from ${{ inputs.eggplantRunnerPath }}"
+          CLI_DIR="$RUNNER_TEMP/downloads"
+          cp "${{ inputs.eggplantRunnerPath }}" $CLI_DIR
+          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "Fetch complete."
       shell: bash
 
+    - name: Download CLI
+      if: ${{ inputs.eggplantRunnerPath == null }}
+      run: |     
+        echo ">> Downloading runner..."
+        if [ -n "${{ inputs.gitlabAccessToken }}" ]; then
+          # Engineering URL download
+          CLI_DIR="$RUNNER_TEMP/downloads/eng"
+          mkdir -p "$CLI_DIR"
+          DOWNLOAD_URL="https://gitlab.com/api/v4/projects/22402994/packages/generic/$DAI_VERSION/0.0.0/$CLI_FILENAME"
+          echo "Downloading $DOWNLOAD_URL..."
+          code="$(curl --header "PRIVATE-TOKEN: ${{ inputs.gitlabAccessToken }}" --output "$CLI_DIR/$CLI_FILENAME"  --write-out %{http_code} --silent $DOWNLOAD_URL)"
+          if [ $code -ne 200 ]; then
+            echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
+          fi
+          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "Download successfully."
+         else
+          CLI_DIR="$RUNNER_TEMP/downloads"
+          if [ -f "$CLI_DIR/$CLI_FILENAME" ]; then
+            echo "Runner found in default directory, skipping download."
+            echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          else
+            # Public URL download
+            mkdir -p "$CLI_DIR"
+            echo "Downloading $DOWNLOAD_URL..."
+            code="$(curl -L $DOWNLOAD_URL --write-out %{http_code} --silent --output "$CLI_DIR/$CLI_FILENAME" )"
+            if [ $code -ne 200 ]; then
+              echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
+            fi
+            echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+            echo "Download successfully."
+          fi
+        fi
+      shell: bash
+        
     - name: Set permissions on Eggplant runner executable
       run: |
-        chmod 0755 $CLI_FILENAME
+        chmod 0755 $CLI_PATH
       shell: bash
       
     - name: Run Eggplant DAI Test Configuration
@@ -125,11 +162,11 @@ runs:
           fi
           COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
         fi
-        
+
         if [ ${{ inputs.dryRun }} == true ]; then
           COMMANDSTR+=" --dry-run"
         fi
         
-        echo "Executing: ./$CLI_FILENAME $COMMANDSTR"
-        ./$CLI_FILENAME $COMMANDSTR
+        echo "Executing: $CLI_PATH $COMMANDSTR"
+        "$CLI_PATH" $COMMANDSTR
       shell: bash

@@ -102,6 +102,9 @@ The **DAI Client Secret** can be obtain by go to http://kc-localhost:8000/auth >
 **Optional** Path to a file where the test results will be stored in junit xml format<br />
 **Example** `C:\results\result.xml`
 
+### `eggplantRunnerPath`
+**Optional** The path to eggplant runner CLI executable<br />
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
