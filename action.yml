@@ -98,7 +98,8 @@ runs:
           fi
           echo "Fetching runner from ${{ inputs.eggplantRunnerPath }}"
           CLI_DIR="$RUNNER_TEMP/downloads"
-          cp "${{ inputs.eggplantRunnerPath }}" $CLI_DIR
+          mkdir -p "$CLI_DIR"
+          cp -f "${{ inputs.eggplantRunnerPath }}" $CLI_DIR
           echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
           echo "Fetch complete."
       shell: bash
