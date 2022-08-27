@@ -1,0 +1,30 @@
+name: Eggplant Runner Build
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+jobs:
+  Run-Test-Configuration:
+    strategy:
+      max-parallel: 1
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    name: Run Test Configuration
+    steps:
+      - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
+      - name: Eggplant Runner
+        uses: keysight-eggplant/eggplant-github-action@main
+        with:
+          dryRun: true
+          serverURL: "http://localhost:8000"
+          clientID: "CLIENT_ID"
+          testConfigID: "TEST_CONFIG_ID" # Test configuration which need to perform execution
+          clientSecret: "CLIENT_SECRET" # Eggplant DAI service client secret
+          # Alternatively, DAI client secret can be set as repo secret
+          # by going to GitHub Settings > Secrets > Actions
+          # clientSecret: "${{secrets.DAI_CLIENT_SECRET}}"
