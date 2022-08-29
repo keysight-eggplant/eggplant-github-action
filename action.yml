@@ -89,7 +89,9 @@ runs:
       run: |     
           echo ">> Checking runner..."
           [[ "${{ inputs.eggplantRunnerPath }}" = *[!\ ]*  ]] || [[ "${{ inputs.eggplantRunnerPath }}" = *[\?\"\*\<\>\|]*  ]] || { echo "Error: Invalid Eggplant Runner Path" ; exit 1; }
-          [ ! -r "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: No such file or permission denied. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
+          if [[ ("$RUNNER_OS" == "Windows") && ("${{ inputs.eggplantRunnerPath }}" != *.exe) ]] || [ ! -r "${{ inputs.eggplantRunnerPath }}" ]; then 
+            echo "Error: No such file or permission denied. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1;
+          fi
           [ -d "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: Path provided must not be a directory. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
          
           filename=$(basename "${{ inputs.eggplantRunnerPath }}")
