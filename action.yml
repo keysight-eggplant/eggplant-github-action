@@ -161,9 +161,6 @@ runs:
         
         if [ -n "${{ inputs.testResultPath }}" ]; then
           echo "${{ inputs.testResultPath }}"
-          if [ "${{ inputs.testResultPath }}" = *[!\ ]*  ]; then
-            echo " Fail 1";exit 1;
-          fi
           if [[ "${{ inputs.testResultPath }}" = *[\?\"\*\<\>\|]*  ]]; then
             echo " Fail 2";exit 1;
           fi
