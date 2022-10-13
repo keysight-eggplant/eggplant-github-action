@@ -115,6 +115,29 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
 ![image](https://user-images.githubusercontent.com/101400930/165939424-d096cb17-b93a-428d-a36f-a2174eef2215.png)
 
 
+## Release for DAI
+<table>
+  <thead>
+    <tr>
+      <th width="300px">DAI Version</th>
+      <th width="500px">Release</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+      <td>6.3.0-3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+  </tr>
+  <tr>
+      <td>6.2.1-2</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.2">v1.0.2</a></td>
+  </tr>
+  <tr>
+      <td>6.1.2-1</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.1">v1.0.1</a></td>
+  </tr>
+  </tbody>
+</table>
 
 ## Notes
 
