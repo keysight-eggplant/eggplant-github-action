@@ -130,7 +130,7 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </tr>
   <tr>
       <td>6.2.1-2</td>
-      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.2">v1.0.2</a></td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.3">v1.0.3</a> / <a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.2">v1.0.2</a></td>
   </tr>
   <tr>
       <td>6.1.2-1</td>
