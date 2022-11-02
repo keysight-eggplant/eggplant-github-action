@@ -68,7 +68,7 @@ Test configuration ID can be obtain by go to test config > look for a particular
              Alternatively, you could set a repo secret in `Repo Settings > Secrets > Actions` and refer to it like below:<br />
              `clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"`.
 The **DAI Client Secret** can be obtain by go to http://kc-your_dai_server:8000/auth > clients > search for client:dai:agent:integration > credential > secret
-![image](https://user-images.githubusercontent.com/101400930/167881013-7b164d9e-41f1-4ce2-b08a-21704acb9d36.png)
+![image](https://user-images.githubusercontent.com/103989779/199386862-414d3de7-1e36-4361-84cd-a0603274a8b5.png)
 
              
 ### `clientID`
