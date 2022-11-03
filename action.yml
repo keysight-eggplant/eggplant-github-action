@@ -3,7 +3,7 @@ name: "Eggplant Runner"
 description: "Triggers a run from DAI test configuration."
 inputs:
   serverURL:
-    description: "The URL of Eggplant DAI server, e.g. http://localhost:8000"
+    description: "The URL of Eggplant DAI server, http(s)://dai_server_hostname:portnumber"
     required: true
   testConfigID:
     description: "The ID of the Eggplant DAI test configuration that you want to run, e.g. 09c48b7d-fc5b-481d-af80-fcffad5d9587"
