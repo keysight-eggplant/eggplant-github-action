@@ -55,24 +55,24 @@ jobs:
 ## Inputs
 
 ### `serverURL`
-**Required** The URL of the Eggplant DAI server, e.g. `http(s)://your_dai_server:8000`.
+**Required** The URL of the Eggplant DAI server, `http(s)://dai_server_hostname:portnumber`.
 
 ### `testConfigID`
 **Required** The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`.
 Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
-![image](https://user-images.githubusercontent.com/103989779/199384006-f724b3f8-02f4-43d8-8d2f-6531f8e3f08f.png)
+![image](https://user-images.githubusercontent.com/103989779/199636740-57d4bfd2-3c94-449c-b2d5-597d69d2f03e.png)
 
 
 ### `clientSecret`
 **Required** The client secret to use to authenticate with the Eggplant DAI server, e.g. `e9c15662-8c1b-472e-930d-aa0b11726093`.<br />
              Alternatively, you could set a repo secret in `Repo Settings > Secrets > Actions` and refer to it like below:<br />
              `clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"`.
-The **DAI Client Secret** can be obtain by go to http://kc-your_dai_server:8000/auth > clients > search for client:dai:agent:integration > credential > secret
-![image](https://user-images.githubusercontent.com/103989779/199386862-414d3de7-1e36-4361-84cd-a0603274a8b5.png)
+The **DAI Client Secret** can be obtain by go to http://kc-dai_server_hostname:portnumber/auth > clients > search for client:dai:agent:integration > credential > secret
+![image](https://user-images.githubusercontent.com/103989779/199636556-700ac626-87ad-4373-ab97-b78773f25176.png)
 
              
 ### `clientID`
-**Optional** The client ID to use to authenticate with the Eggplant DAI server.<br />
+**Required** The client ID to use to authenticate with the Eggplant DAI server.<br />
 **Default:** `client:dai:agent:integration`
 
 ### `requestTimeout`
@@ -112,7 +112,7 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
 ![image](https://user-images.githubusercontent.com/101400930/165939235-3f1f5ecd-8242-450d-918e-dbeb9f6f4b15.png)
 
 ### Console output
-![image](https://user-images.githubusercontent.com/103989779/199383286-1c32e75e-b5eb-4129-90dc-8d593b8cea00.png)
+![image](https://user-images.githubusercontent.com/103989779/199637972-94c8e9ea-8e96-40fa-8969-8daef5802348.png)
 
 ## Release for DAI
 <table>
