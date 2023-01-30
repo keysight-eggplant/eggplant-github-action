@@ -164,16 +164,26 @@ runs:
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
         
-        if [ "${{ inputs.testConfigID }}" ]; then
+        if [ -n "${{ inputs.testConfigID }}" -a "${{ inputs.testConfigID }}" =~ .* ]; then
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
-        elif [ "${{ inputs.testConfigName }}" -a "${{ inputs.modelName }}" ]; then
-          COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
-        elif [ "${{ inputs.testConfigName }}" -a "${{ inputs.suiteName }}" ]; then
-          COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
+          echo "testConfigID: ${{ inputs.testConfigID }}"
         else
-          echo "Error: Invalid test config info. Use only testConfigId or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
+          if [ -n "${{ inputs.testConfigName }}" -a "${{ inputs.testConfigName }}" =~ .* ]; then
+            echo "testConfigName: ${{ inputs.testConfigName }}"
+            if [ -n "${{ inputs.modelName }}" -a "${{ inputs.modelName }}" =~ .* ]; then
+              echo "modelName: ${{ inputs.modelName }}"
+              COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
+            elif [ -n "${{ inputs.suiteName }}" -a "${{ inputs.suiteName }}" =~ .* ]; then
+              echo "suiteName: ${{ inputs.suiteName }}"
+              COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
+            else
+              echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
+            fi
+          else
+            echo "Error:  testConfigID and testConfigName not found. Use only testConfigID or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
+          fi
         fi
-
+        
         COMMANDSTR+="--client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
