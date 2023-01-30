@@ -164,13 +164,26 @@ runs:
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
   
-       echo ">> Test Configuration Info:"
+        echo ">> Test Configuration Info:"
        
         if [[ (-n "${{ inputs.testConfigID }}") && ("${{ inputs.testConfigID }}" =~ .*) ]]; then
           echo "ID = ${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
         else
-         # empty block
+          if [[ (-n "${{ inputs.testConfigName }}") && ("${{ inputs.testConfigName }}" =~ .*) ]]; then
+            echo "Name = ${{ inputs.testConfigName }}"
+            if [[ (-n "${{ inputs.modelName }}") && ("${{ inputs.modelName }}" =~ .* ) ]]; then
+              echo "Model Name = ${{ inputs.modelName }}"
+              COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
+            elif [[ (-n "${{ inputs.suiteName }}") && ("${{ inputs.suiteName }}" =~ .* ) ]]; then
+              echo "Suite Name = ${{ inputs.suiteName }}"
+              COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
+            else
+              echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
+            fi
+          else
+            echo "Error:  testConfigID and testConfigName not found. Use only testConfigID or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
+          fi
         fi
         
         COMMANDSTR+="--client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
