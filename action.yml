@@ -164,18 +164,18 @@ runs:
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
 
-        echo ">> Test config info:"
+        echo ">> Initializing test config info..."
         if [[ (-n "${{ inputs.testConfigID }}") && ("${{ inputs.testConfigID }}" =~ .*) ]]; then
-          echo "ID: ${{ inputs.testConfigID }}"
+          echo "ID=${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
         else
           if [[ (-n "${{ inputs.testConfigName }}") && ("${{ inputs.testConfigName }}" =~ .*) ]]; then
-            echo "Name: ${{ inputs.testConfigName }}"
+            echo "Name=${{ inputs.testConfigName }}"
             if [[ (-n "${{ inputs.modelName }}") && ("${{ inputs.modelName }}" =~ .* ) ]]; then
-              echo "Model Name: ${{ inputs.modelName }}"
+              echo "Model Name=${{ inputs.modelName }}"
               COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
             elif [[ (-n "${{ inputs.suiteName }}") && ("${{ inputs.suiteName }}" =~ .* ) ]]; then
-              echo "Suite Name: ${{ inputs.suiteName }}"
+              echo "Suite Name=${{ inputs.suiteName }}"
               COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
             else
               echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
