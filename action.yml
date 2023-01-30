@@ -164,14 +164,14 @@ runs:
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
         
-        if [ -n "${{ inputs.testConfigID }}" ]; then
+        if [ "${{ inputs.testConfigID }}" ]; then
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
-        elif [ -n "${{ inputs.testConfigName }}" -a -n "${{ inputs.modelName }}" ]; then
+        elif [ "${{ inputs.testConfigName }}" -a "${{ inputs.modelName }}" ]; then
           COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
-        elif [ -n "${{ inputs.testConfigName }}" -a -n "${{ inputs.suiteName }}" ]; then
+        elif [ "${{ inputs.testConfigName }}" -a "${{ inputs.suiteName }}" ]; then
           COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
         else
-          echo "Error: Invalid test config info. Use testConfigId or testConfigName with only suiteName or modelName to continue.";  exit 1; 
+          echo "Error: Invalid test config info. Use only testConfigId or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
         fi
 
         COMMANDSTR+="--client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
