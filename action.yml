@@ -163,9 +163,7 @@ runs:
       run: |
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
-  
-        echo ">> Test Configuration Info:"
-       
+
         if [[ (-n "${{ inputs.testConfigID }}") && ("${{ inputs.testConfigID }}" =~ .*) ]]; then
           echo "ID = ${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
