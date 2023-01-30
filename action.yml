@@ -164,11 +164,11 @@ runs:
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
         
-        if [ -z "${{ inputs.testConfigID }}" ]; then
+        if [ -n "${{ inputs.testConfigID }}" ]; then
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
-        elif [ -z "${{ inputs.testConfigName }}" -a -z "${{ inputs.modelName }}" ]; then
+        elif [ -n "${{ inputs.testConfigName }}" -a -n "${{ inputs.modelName }}" ]; then
           COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
-        elif [ -z "${{ inputs.testConfigName }}" -a -z "${{ inputs.suiteName }}" ]; then
+        elif [ -n "${{ inputs.testConfigName }}" -a -n "${{ inputs.suiteName }}" ]; then
           COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
         else
           echo "Error: Invalid test config info. Use testConfigId or testConfigName with only suiteName or modelName to continue.";  exit 1; 
