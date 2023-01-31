@@ -165,6 +165,7 @@ runs:
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
 
         echo ">> Checking test config info..."
+        
         if [[ (-n "${{ inputs.testConfigID }}") ]]; then
           echo "ID=${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
@@ -182,6 +183,8 @@ runs:
         else
           echo "Error:  testConfigID and testConfigName not found. Use only testConfigID or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
         fi
+        
+        echo "Test config info found."
         
         COMMANDSTR+="--client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
 
