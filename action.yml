@@ -166,7 +166,7 @@ runs:
 
         echo ">> Checking test config info..."
         
-        if [[ (-n "${{ inputs.testConfigID }}") ]]; then
+        if [[ (-n "${{ inputs.testConfigID }}") && ("${{ inputs.testConfigID }}" =~ ^\S*$ ) ]]; then
           echo "ID=${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
         elif [[ (-n "${{ inputs.testConfigName }}") ]]; then
