@@ -12,10 +12,10 @@ inputs:
     description: "The name of the test config that you want to run"
     required: false
   modelName:
-    description: "The name of model of the model-based test config that you want to run"
+    description: "DAI model name for the specified test configuration"
     required: false
   suiteName:
-    description: "The name of suite for the script-based test config that you want to run"
+    description: "DAI suite name for the specified test configuration"
     required: false
   clientID:
     description: "The client ID to use to authenticate with the Eggplant DAI server"
