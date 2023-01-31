@@ -190,7 +190,7 @@ runs:
         
         echo "Test config info found."
         
-        COMMANDSTR+="--client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
+        COMMANDSTR+=" --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
           if [ ! -e "${{ inputs.CACertPath }}" ]; then
