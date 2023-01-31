@@ -172,6 +172,8 @@ runs:
         elif [[ -n "${{ inputs.testConfigName }}" ]]; then
           echo "Name=${{ inputs.testConfigName }}"
           if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
+            echo "Model Name=${{ inputs.modelName }}"
+            echo "Suite Name=${{ inputs.suiteName }}"
             echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
           elif [[ -n "${{ inputs.modelName }}"  ]]; then
             echo "Model Name=${{ inputs.modelName }}"
