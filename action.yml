@@ -166,15 +166,17 @@ runs:
 
         echo ">> Checking test config info..."
         
-        if [[ (-n "${{ inputs.testConfigID }}") && ("${{ inputs.testConfigID }}" = ^\S*$ ) ]]; then
+        if [[ -n "${{ inputs.testConfigID }}" ]]; then
           echo "ID=${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
-        elif [[ (-n "${{ inputs.testConfigName }}") ]]; then
+        elif [[ -n "${{ inputs.testConfigName }}" ]]; then
           echo "Name=${{ inputs.testConfigName }}"
-          if [[ (-n "${{ inputs.modelName }}")  ]]; then
+          if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
+            echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
+          elif [[ -n "${{ inputs.modelName }}"  ]]; then
             echo "Model Name=${{ inputs.modelName }}"
             COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
-          elif [[ (-n "${{ inputs.suiteName }}") ]]; then
+          elif [[ -n "${{ inputs.suiteName }}" ]]; then
             echo "Suite Name=${{ inputs.suiteName }}"
             COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
           else
