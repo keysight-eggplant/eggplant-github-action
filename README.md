@@ -63,11 +63,11 @@ The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b
 <br />Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
 ![image](https://user-images.githubusercontent.com/103989779/199636740-57d4bfd2-3c94-449c-b2d5-597d69d2f03e.png)
 <br />
-Alternatively, use [testConfigName](#testconfigname) and remove this parameter.  
+Alternatively, use [testConfigName](#testconfigname) and remove this input if any.
 
 ### `testConfigName`
 The name of the test config that you want to run. **[Required if testConfigID is not given]** 
-<br />Must provide one of the following supporting arguments:
+<br />Must provide ***one*** of the following supporting arguments:
 
 - ### `modelName`
 DAI model name for the specified test configuration. 
@@ -75,7 +75,7 @@ DAI model name for the specified test configuration.
 - ### `suiteName`
 DAI suite name for the specified test configuration. 
   
-Alternatively, use [testConfigID](#testconfigid) and remove this parameter along with its supporting argument. 
+Alternatively, use [testConfigID](#testconfigid) and remove this input and supporting arguments if any.
              
 ### `clientID`
 The client ID to use to authenticate with the Eggplant DAI server. **[Required]**
