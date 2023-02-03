@@ -162,7 +162,7 @@ runs:
     - name: Run Eggplant DAI Test Configuration
       run: |
       
-        echo "Validating DAI test config parameters..."
+        echo ">> Validating DAI test config parameters..."
         
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
