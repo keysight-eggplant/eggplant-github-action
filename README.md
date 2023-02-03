@@ -55,33 +55,33 @@ jobs:
 ## Inputs
 
 ### `serverURL` 
-The URL of the Eggplant DAI server, `http(s)://dai_server_hostname:portnumber`. **[Required]** 
+**[Required]**  The URL of the Eggplant DAI server, `http(s)://dai_server_hostname:portnumber`. 
 
 
 ### `testConfigID`
-The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`. **[Required if testConfigName is not given]** 
+[Required if testConfigName is not given]**  The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`. **
 <br />Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
 ![image](https://user-images.githubusercontent.com/103989779/199636740-57d4bfd2-3c94-449c-b2d5-597d69d2f03e.png)
 <br />
 Alternatively, use [testConfigName](#testconfigname) and remove this input if any.
 
 ### `testConfigName`
-The name of the test config that you want to run. **[Required if testConfigID is not given]** 
+**[Required if testConfigID is not given]** The name of the test config that you want to run. 
 <br />Must provide ***one*** of the following supporting arguments:
 
 - ### `modelName`
-DAI model name for the specified test configuration. 
+DAI model name for the specified test configuration. (Use this argument if only testConfigName are provided)
 
 - ### `suiteName`
-DAI suite name for the specified test configuration. 
+DAI suite name for the specified test configuration. (Use this argument if only testConfigName are provided)
   
 Alternatively, use [testConfigID](#testconfigid) and remove this input and supporting arguments if any.
              
 ### `clientID`
-The client ID to use to authenticate with the Eggplant DAI server. **[Required]**
+**[Required]** The client ID to use to authenticate with the Eggplant DAI server. 
 
 ### `clientSecret`
-The client secret to use to authenticate with the Eggplant DAI server.  **[Required]**<br />
+ **[Required]** The client secret to use to authenticate with the Eggplant DAI server. <br />
 Alternatively, you could set a repo secret in `Repo Settings > Secrets > Actions` and refer to it like below:<br />
 `clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"`.
 
@@ -90,7 +90,7 @@ The **DAI Client Secret** can be obtain by go to http(s):/dai_server_hostname:po
 ![image](https://user-images.githubusercontent.com/101400930/206938890-07a45761-3c49-40a7-bf48-1a1b6f3b3659.png)
 
 ### `requestTimeout`
-The timeout in seconds for each HTTP request to the Eggplant DAI server. **[Optional]**<br />
+ **[Optional]** The timeout in seconds for each HTTP request to the Eggplant DAI server.<br />
 **Default:** `30`
 
 ### `requestRetries`
