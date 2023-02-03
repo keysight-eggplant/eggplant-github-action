@@ -161,25 +161,27 @@ runs:
       
     - name: Run Eggplant DAI Test Configuration
       run: |
+      
+        echo >> "Validating DAI test config parameters..."
+        
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
-
-        echo ">> Checking test config info..."
+        echo >> "serverURL=${{ inputs.serverURL }}"
         
         if [[ -n "${{ inputs.testConfigID }}" ]]; then
-          echo "ID=${{ inputs.testConfigID }}"
+          echo "testConfigID=${{ inputs.testConfigID }}"
           COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
         elif [[ -n "${{ inputs.testConfigName }}" ]]; then
-          echo "Name=${{ inputs.testConfigName }}"
+          echo "testConfigName=${{ inputs.testConfigName }}"
           if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
-            echo "Model Name=${{ inputs.modelName }}"
-            echo "Suite Name=${{ inputs.suiteName }}"
+            echo "modelName=${{ inputs.modelName }}"
+            echo "suiteName=${{ inputs.suiteName }}"
             echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
           elif [[ -n "${{ inputs.modelName }}"  ]]; then
-            echo "Model Name=${{ inputs.modelName }}"
+            echo "modelName=${{ inputs.modelName }}"
             COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
           elif [[ -n "${{ inputs.suiteName }}" ]]; then
-            echo "Suite Name=${{ inputs.suiteName }}"
+            echo "suiteName=${{ inputs.suiteName }}"
             COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
           else
             echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
@@ -188,7 +190,7 @@ runs:
           echo "Error:  testConfigID and testConfigName not found. Use only testConfigID or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
         fi
         
-        echo "Test config info found."
+        echo "Test config data validation complete."
         
          if [ -n "${{ inputs.clientID }}" ]; then
           COMMANDSTR+=" --client-id=${{ inputs.clientID }}"
