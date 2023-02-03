@@ -166,7 +166,7 @@ runs:
         
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
-        echo >> "serverURL=${{ inputs.serverURL }}"
+        echo "serverURL=${{ inputs.serverURL }}"
         
         if [[ -n "${{ inputs.testConfigID }}" ]]; then
           echo "testConfigID=${{ inputs.testConfigID }}"
