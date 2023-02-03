@@ -59,7 +59,7 @@ jobs:
 
 
 ### `testConfigID`
-[Required if testConfigName is not given]**  The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`. **
+**[Required if testConfigName is not given]**  The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`. **
 <br />Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
 ![image](https://user-images.githubusercontent.com/103989779/199636740-57d4bfd2-3c94-449c-b2d5-597d69d2f03e.png)
 <br />
@@ -92,34 +92,34 @@ The **DAI Client Secret** can be obtain by go to http(s):/dai_server_hostname:po
 **Default:** `30`
 
 ### `requestRetries`
-The number of times to attempt each HTTP request to the Eggplant DAI server. **[Optional]**<br />
+**[Optional]** The number of times to attempt each HTTP request to the Eggplant DAI server.<br />
 **Default:** `5`
 
 ### `backoffFactor`
-The exponential backoff factor between each HTTP request. **[Optional]**<br />
+**[Optional]** The exponential backoff factor between each HTTP request.<br />
 **Default:** `0.5`
 
 ### `pollInterval`
-The number of seconds to wait between each call to the Eggplant DAI server. **[Optional]**<br />
+**[Optional]** The number of seconds to wait between each call to the Eggplant DAI server.<br />
 **Default:** `5`
 
 ### `testEnvironmentTimeout`
-The timeout in seconds for checking test environment readiness. **[Optional]**<br />
+**[Optional]** The timeout in seconds for checking test environment readiness.<br />
 **Default:** `15`
 
 ### `logLevel`
-The logging level. **[Optional]**<br />
+**[Optional]** The logging level. <br />
 **Default:** `INFO`
 
 ### `CACertPath`
-The path to an alternative Certificate Authority pem file. **[Optional]**<br />
+**[Optional]** The path to an alternative Certificate Authority pem file. <br />
 
 ### `testResultPath`
-Path to a file where the test results will be stored in junit xml format. **[Optional]**<br />
+**[Optional]** Path to a file where the test results will be stored in junit xml format. <br />
 **Example** `C:\results\result.xml`
 
 ### `eggplantRunnerPath`
-The path to eggplant runner CLI executable. **[Optional]**<br />
+**[Optional]** The path to eggplant runner CLI executable. <br />
 
 ## Output
 ### Pipeline triggered
