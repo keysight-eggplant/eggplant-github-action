@@ -5,13 +5,21 @@ inputs:
   serverURL:
     description: "The URL of Eggplant DAI server, http(s)://dai_server_hostname:portnumber"
     required: true
-  testConfigID:
+  testConfigID: 
     description: "The ID of the Eggplant DAI test configuration that you want to run, e.g. 09c48b7d-fc5b-481d-af80-fcffad5d9587"
-    required: true
+    required: false
+  testConfigName: 
+    description: "The name of the test config that you want to run"
+    required: false
+  modelName:
+    description: "DAI model name for the specified test configuration.(Use this argument if only testConfigName are provided)"
+    required: false
+  suiteName:
+    description: "DAI suite name for the specified test configuration.(Use this argument if only testConfigName are provided)"
+    required: false
   clientID:
-    description: "The client ID to use to authenticate with the Eggplant DAI server  [default: client:dai:agent:integration]"
+    description: "The client ID to use to authenticate with the Eggplant DAI server"
     required: true
-    default: "client:dai:agent:integration"
   clientSecret:
     description: "The client secret to use to authenticate with the Eggplant DAI server  [env var: DAI_CLIENT_SECRET; required]"
     required: true
@@ -153,9 +161,42 @@ runs:
       
     - name: Run Eggplant DAI Test Configuration
       run: |
+      
+        echo ">> Validating DAI test config parameters..."
+        
         [[ "${{ inputs.serverURL }}" ]] || { echo "Error: Missing server URL" ; exit 1; }
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
-        COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }} --client-id=${{ inputs.clientID }} --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
+        echo "serverURL=${{ inputs.serverURL }}"
+        
+        if [[ -n "${{ inputs.testConfigID }}" ]]; then
+          echo "testConfigID=${{ inputs.testConfigID }}"
+          COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
+        elif [[ -n "${{ inputs.testConfigName }}" ]]; then
+          echo "testConfigName=${{ inputs.testConfigName }}"
+          if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
+            echo "modelName=${{ inputs.modelName }}"
+            echo "suiteName=${{ inputs.suiteName }}"
+            echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
+          elif [[ -n "${{ inputs.modelName }}"  ]]; then
+            echo "modelName=${{ inputs.modelName }}"
+            COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
+          elif [[ -n "${{ inputs.suiteName }}" ]]; then
+            echo "suiteName=${{ inputs.suiteName }}"
+            COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
+          else
+            echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
+          fi
+        else
+          echo "Error:  testConfigID and testConfigName not found. Use only testConfigID or testConfigName (with modelName or suiteName) to continue.";  exit 1; 
+        fi
+        
+        echo "Test config data validation complete."
+        
+         if [ -n "${{ inputs.clientID }}" ]; then
+          COMMANDSTR+=" --client-id=${{ inputs.clientID }}"
+         fi
+          
+        COMMANDSTR+=" --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
           if [ ! -e "${{ inputs.CACertPath }}" ]; then
