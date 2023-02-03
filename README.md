@@ -74,8 +74,6 @@ DAI model name for the specified test configuration. (Use this argument if only 
 
 - ### `suiteName`
 DAI suite name for the specified test configuration. (Use this argument if only testConfigName are provided)
-  
-Alternatively, use [testConfigID](#testconfigid) and remove this input and supporting arguments if any.
              
 ### `clientID`
 **[Required]** The client ID to use to authenticate with the Eggplant DAI server. 
