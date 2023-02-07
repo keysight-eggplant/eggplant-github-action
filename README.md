@@ -59,21 +59,21 @@ jobs:
 
 
 ### `testConfigID`
-**[Required if testConfigName is not given]**  The ID of the Eggplant DAI test configuration that you want to run, e.g. `09c48b7d-fc5b-481d-af80-fcffad5d9587`. **
-<br />Test configuration ID can be obtain by go to test config > look for a particular test config > test config id can be obtain from url.
+**[Required if testConfigName is not given]**  The ID of the Eggplant DAI test configuration that you want to run, e.g. `389fee3e-9d6b-43e6-b31e-f1d379f27cdf`. 
+<br />Test configuration ID can be obtained by go to `Test Config > Look for a particular test config > Test config id can be obtain from url`.
 ![image](https://user-images.githubusercontent.com/103989779/199636740-57d4bfd2-3c94-449c-b2d5-597d69d2f03e.png)
 <br />
-Alternatively, use [testConfigName](#testconfigname) and remove this input if any.
+Alternatively, use [testConfigName](#testconfigname) and remove this input.
 
 ### `testConfigName`
-**[Required if testConfigID is not given]** The name of the test config that you want to run. 
+**[Required if testConfigID is not given]** The name of the Eggplant DAI test configuration that you want to run. 
 <br />Must provide ***one*** of the following supporting arguments:
 
 - ### `modelName`
-DAI model name for the specified test configuration. (Use this argument if only testConfigName are provided)
+DAI model name for the specified test configuration. (Use this argument if only testConfigName is provided)
 
 - ### `suiteName`
-DAI suite name for the specified test configuration. (Use this argument if only testConfigName are provided)
+DAI suite name for the specified test configuration. (Use this argument if only testConfigName is provided)
              
 ### `clientID`
 **[Required]** The client ID to use to authenticate with the Eggplant DAI server. 
@@ -83,7 +83,7 @@ DAI suite name for the specified test configuration. (Use this argument if only 
 Alternatively, you could set a repo secret in `Repo Settings > Secrets > Actions` and refer to it like below:<br />
 `clientSecret: "${{ secrets.DAI_CLIENT_SECRET }}"`.
 
-The **DAI Client Secret** can be obtain by go to http(s):/dai_server_hostname:portnumber/ > System > API Access > "Add New" (for new API access creation)
+The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname:portnumber/ > System > API Access > Add New` (for new API access creation)
 
 ![image](https://user-images.githubusercontent.com/101400930/206938890-07a45761-3c49-40a7-bf48-1a1b6f3b3659.png)
 
@@ -116,7 +116,7 @@ The **DAI Client Secret** can be obtain by go to http(s):/dai_server_hostname:po
 
 ### `testResultPath`
 **[Optional]** Path to a file where the test results will be stored in junit xml format. <br />
-**Example** `C:\results\result.xml`
+**Example:** `C:\results\result.xml`
 
 ### `eggplantRunnerPath`
 **[Optional]** The path to eggplant runner CLI executable. <br />
