@@ -140,7 +140,7 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>6.5.0</td>
+      <td>6.5.0-3</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
    </tr>
    <tr>
