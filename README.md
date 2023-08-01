@@ -49,7 +49,7 @@ jobs:
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
-		  clientID: "" # Required. Details below
+          clientID: "" # Required. Details below
           clientSecret: "" # Required. Details below
 ```
 
