@@ -45,10 +45,11 @@ jobs:
     steps:
       - run: echo "Trigger event.. ${{ github.event_name }}. Runner OS.. ${{ runner.os }}."
       - name: Eggplant Runner
-        uses: keysight-eggplant/eggplant-github-action@1.0.0
+        uses: keysight-eggplant/eggplant-github-action@v1.0.0
         with:
           serverURL: "" # Required. Details below
           testConfigID: "" # Required. Details below
+          clientID: "" # Required. Details below
           clientSecret: "" # Required. Details below
 ```
 
@@ -140,8 +141,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>7.0.0-3</td>
+      <td>7.0.1-1</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>7.0.0-3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.7">v1.0.7</a></td>
    </tr>
    <tr>
       <td>6.5.0-3</td>
