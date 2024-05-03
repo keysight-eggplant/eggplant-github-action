@@ -95,7 +95,7 @@ runs:
         echo "DOWNLOAD_URL=https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 7.2.0-4 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 7.3.0-3 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -108,7 +108,9 @@ runs:
           [ -d "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: Path provided must not be a directory. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
          
           filename=$(basename "${{ inputs.eggplantRunnerPath }}")
-          if [[ "$filename" != "$CLI_FILENAME" ]]; then
+          filename_minor=$(echo "$filename" | grep -oP '\d+\.\d+')
+          CLI_minor=$(echo "$CLI_FILENAME" | grep -oP '\d+\.\d+')
+          if [[ "$filename_minor" != "$CLI_minor" ]]; then
             echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
           echo "Fetching runner from ${{ inputs.eggplantRunnerPath }}"
