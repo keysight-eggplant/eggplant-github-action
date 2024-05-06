@@ -108,8 +108,8 @@ runs:
           [ -d "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: Path provided must not be a directory. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
          
           filename=$(basename "${{ inputs.eggplantRunnerPath }}")
-          filename_minor=$(echo "$filename" | grep -oP '\d+\.\d+')
-          CLI_minor=$(echo "$CLI_FILENAME" | grep -oP '\d+\.\d+')
+          filename_minor=$(echo "$filename" | grep -oE '[0-9]+\.[0-9]+' || echo "")
+          CLI_minor=$(echo "$CLI_FILENAME" | grep -oE '[0-9]+\.[0-9]+' || echo "")
           if [[ "$filename_minor" != "$CLI_minor" ]]; then
             echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
@@ -117,7 +117,7 @@ runs:
           CLI_DIR="$RUNNER_TEMP/downloads"
           mkdir -p "$CLI_DIR"
           cp -f "${{ inputs.eggplantRunnerPath }}" $CLI_DIR
-          echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
+          echo "CLI_PATH=$CLI_DIR/$filename" >> $GITHUB_ENV
           echo "Fetch complete."
       shell: bash
 
