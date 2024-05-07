@@ -108,8 +108,21 @@ runs:
           [ -d "${{ inputs.eggplantRunnerPath }}" ] && { echo "Error: Path provided must not be a directory. Eggplant Runner Path: ${{ inputs.eggplantRunnerPath }}"; exit 1; }
          
           filename=$(basename "${{ inputs.eggplantRunnerPath }}")
-          filename_minor=$(echo "$filename" | grep -oE '[0-9]+\.[0-9]+' || echo "")
-          CLI_minor=$(echo "$CLI_FILENAME" | grep -oE '[0-9]+\.[0-9]+' || echo "")
+          filename_minor=""
+          CLI_minor=""
+          filename_length=${#filename}
+          CLI_FILENAME_LENGTH=${#CLI_FILENAME}
+
+          if [ "$CLI_FILENAME_LENGTH" == 29 ]; then
+            filename_minor=${filename:0:$((filename_length - 4))}
+            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 4))}
+          elif [ "$CLI_FILENAME_LENGTH" == 35 ]; then
+            filename_minor=${filename:0:$((filename_length - 8))}
+            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 8))}
+          else
+            filename_minor=not match
+            CLI_minor=not correct file format
+          fi
           if [[ "$filename_minor" != "$CLI_minor" ]]; then
             echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
