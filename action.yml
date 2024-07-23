@@ -82,7 +82,7 @@ runs:
         fi
         echo "CLI_FILENAME=$EXE_FILENAME" >> $GITHUB_ENV
         echo "DAI_VERSION=$DAI_VERSION" >> $GITHUB_ENV
-        echo "DOWNLOAD_URL=https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
+        echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
         DAI_VERSION: 7.4.0-3 # AUB-13519_CICD_Junit_file_implementation
