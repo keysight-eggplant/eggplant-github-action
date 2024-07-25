@@ -149,8 +149,10 @@ runs:
             # Public URL download
             mkdir -p "$CLI_DIR"
             echo "Downloading $DOWNLOAD_URL..."
-            code="$(curl -L $DOWNLOAD_URL --write-out %{http_code} --silent --output "$CLI_DIR/$CLI_FILENAME" )"
-            if [ $code -ne 200 ]; then
+            code=$(curl -I -s -L "$DOWNLOAD_URL" | awk '/HTTP\/1.1/ {print $2}')
+            if [ $code -eq 200 ]; then
+              curl -L "$DOWNLOAD_URL" --silent --output "$CLI_DIR/$CLI_FILENAME"
+            else
               echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
             fi
             echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
