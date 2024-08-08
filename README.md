@@ -193,6 +193,9 @@ Hence, we can only do unilateral testing.
  - Windows
  - MacOS
 
+
+4. Starting from v1.0.12 (DAI 7.4.0-4) onwards, Inputs `pollInterval` and `testEnvironmentTimeout` were removed. Warnings are expected if inputs are still in the workflow file.
+
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
