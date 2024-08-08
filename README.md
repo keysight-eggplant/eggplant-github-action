@@ -100,14 +100,6 @@ The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname
 **[Optional]** The exponential backoff factor between each HTTP request.<br />
 **Default:** `0.5`
 
-### `pollInterval`
-**[Optional]** The number of seconds to wait between each call to the Eggplant DAI server.<br />
-**Default:** `5`
-
-### `testEnvironmentTimeout`
-**[Optional]** The timeout in seconds for checking test environment readiness.<br />
-**Default:** `15`
-
 ### `logLevel`
 **[Optional]** The logging level. <br />
 **Default:** `INFO`
@@ -141,8 +133,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>7.3.0-3</td>
+      <td>7.4.0-4</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>7.3.0-3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.10">v1.0.11</a></td>
    </tr>
    <tr>
       <td>7.2.0-4</td>
@@ -196,6 +192,9 @@ Hence, we can only do unilateral testing.
  - Linux
  - Windows
  - MacOS
+
+
+4. Starting from v1.0.12 (DAI 7.4.0-4) onwards, Inputs `pollInterval` and `testEnvironmentTimeout` were removed. Warnings are expected if inputs are still in the workflow file.
 
 # License
 

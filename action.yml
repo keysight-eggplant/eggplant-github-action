@@ -38,16 +38,6 @@ inputs:
     required: false
     type: float
     default: 0.5
-  pollInterval:
-    description: "The number of seconds to wait between each call to the Eggplant DAI server  [default: 5]"
-    required: false
-    type: integer
-    default: 5
-  testEnvironmentTimeout:
-    description: "The timeout in seconds for checking test environment readiness  [default: 15]"
-    required: false
-    type: integer
-    default: 15
   logLevel:
     description: "The logging level  [default: INFO]"
     required: false
@@ -92,10 +82,10 @@ runs:
         fi
         echo "CLI_FILENAME=$EXE_FILENAME" >> $GITHUB_ENV
         echo "DAI_VERSION=$DAI_VERSION" >> $GITHUB_ENV
-        echo "DOWNLOAD_URL=https://downloads.eggplantsoftware.com/downloads/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
+        echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 7.3.0-3 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 7.4.0-4 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -159,8 +149,10 @@ runs:
             # Public URL download
             mkdir -p "$CLI_DIR"
             echo "Downloading $DOWNLOAD_URL..."
-            code="$(curl -L $DOWNLOAD_URL --write-out %{http_code} --silent --output "$CLI_DIR/$CLI_FILENAME" )"
-            if [ $code -ne 200 ]; then
+            code=$(curl -I -s -L "$DOWNLOAD_URL" | awk '/HTTP\/1.1/ {print $2}')
+            if [ $code -eq 200 ]; then
+              curl -L "$DOWNLOAD_URL" --silent --output "$CLI_DIR/$CLI_FILENAME"
+            else
               echo "Error: Download failed. Unable to download from url: $DOWNLOAD_URL. Error details: HTTP Error $code"; exit 1;
             fi
             echo "CLI_PATH=$CLI_DIR/$CLI_FILENAME" >> $GITHUB_ENV
@@ -211,7 +203,7 @@ runs:
           COMMANDSTR+=" --client-id=${{ inputs.clientID }}"
          fi
           
-        COMMANDSTR+=" --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --poll-interval=${{ inputs.pollInterval }} --test-environment-timeout=${{ inputs.testEnvironmentTimeout }} --log-level=${{ inputs.logLevel }}"
+        COMMANDSTR+=" --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --log-level=${{ inputs.logLevel }}"
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
           if [ ! -e "${{ inputs.CACertPath }}" ]; then
