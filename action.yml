@@ -51,6 +51,9 @@ inputs:
   eggplantRunnerPath:
     description: "The path to eggplant runner CLI executable"
     required: false
+  parameters:
+    description: "The global parameter(s) to override in the format parameter_name=parameter_value"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -85,7 +88,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 7.4.0-4 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 7.5.0-3 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -177,7 +180,7 @@ runs:
         
         if [[ -n "${{ inputs.testConfigID }}" ]]; then
           echo "testConfigID=${{ inputs.testConfigID }}"
-          COMMANDSTR="${{ inputs.serverURL }} ${{ inputs.testConfigID }}"
+          COMMANDARGS=("${{ inputs.serverURL }}" "${{ inputs.testConfigID }}")
         elif [[ -n "${{ inputs.testConfigName }}" ]]; then
           echo "testConfigName=${{ inputs.testConfigName }}"
           if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
@@ -186,10 +189,10 @@ runs:
             echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
           elif [[ -n "${{ inputs.modelName }}"  ]]; then
             echo "modelName=${{ inputs.modelName }}"
-            COMMANDSTR="modelbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --model-name=${{ inputs.modelName }}" 
+            COMMANDARGS=("modelbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--model-name=${{ inputs.modelName }}")
           elif [[ -n "${{ inputs.suiteName }}" ]]; then
             echo "suiteName=${{ inputs.suiteName }}"
-            COMMANDSTR="scriptbased ${{ inputs.serverURL }} --test-config-name=${{ inputs.testConfigName }} --suite-name=${{ inputs.suiteName }}"
+            COMMANDARGS=("scriptbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--suite-name=${{ inputs.suiteName }}")
           else
             echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
           fi
@@ -200,29 +203,39 @@ runs:
         echo "Test config data validation complete."
         
          if [ -n "${{ inputs.clientID }}" ]; then
-          COMMANDSTR+=" --client-id=${{ inputs.clientID }}"
+          COMMANDARGS+=("--client-id=${{ inputs.clientID }}")
          fi
           
-        COMMANDSTR+=" --request-timeout=${{ inputs.requestTimeout }} --request-retries=${{ inputs.requestRetries }} --backoff-factor=${{ inputs.backoffFactor }} --log-level=${{ inputs.logLevel }}"
+        COMMANDARGS+=("--request-timeout=${{ inputs.requestTimeout }}" "--request-retries=${{ inputs.requestRetries }}" "--backoff-factor=${{ inputs.backoffFactor }}" "--log-level=${{ inputs.logLevel }}")
 
         if [ -n "${{ inputs.CACertPath }}" ]; then
           if [ ! -e "${{ inputs.CACertPath }}" ]; then
             echo "Error: Invalid CA Cert Path";  exit 1; 
           fi
-          COMMANDSTR+=" --ca-cert-path=${{ inputs.CACertPath }}"
+          COMMANDARGS+=("--ca-cert-path=${{ inputs.CACertPath }}")
         fi
         
         if [ -n "${{ inputs.testResultPath }}" ]; then
           if [ "${{ inputs.testResultPath }}" = *[!\ ]*  ] || [[ "${{ inputs.testResultPath }}" = *[\?\"\*\<\>\|]*  ]] || [[ "${{ inputs.testResultPath }}" != *.xml ]]; then
             echo "Error: Invalid Test Result Path";  exit 1; 
           fi
-          COMMANDSTR+=" --test-result-path=${{ inputs.testResultPath }}"
+          COMMANDARGS+=("--test-result-path=${{ inputs.testResultPath }}")
         fi
 
         if [ ${{ inputs.dryRun }} == true ]; then
-          COMMANDSTR+=" --dry-run"
+          COMMANDARGS+=("--dry-run")
         fi
         
-        echo "Executing: $CLI_PATH $COMMANDSTR"
-        "$CLI_PATH" $COMMANDSTR
+        if [ -n "${{ inputs.parameters}}" ]; then
+          IFS=';;' read -ra values <<< "${{ inputs.parameters }}"
+          for value in "${values[@]}"; do
+            if [ -n "$value" ]; then
+              COMMANDARGS+=("--param")
+              COMMANDARGS+=("$value")
+            fi
+          done
+        fi
+
+        echo "Executing: $CLI_PATH ${COMMANDARGS[@]}"
+        "$CLI_PATH" "${COMMANDARGS[@]}"
       shell: bash

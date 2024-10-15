@@ -114,6 +114,12 @@ The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname
 ### `eggplantRunnerPath`
 **[Optional]** The path to eggplant runner CLI executable. <br />
 
+### `parameters`
+**[Optional]** The global parameter(s) to override in the format `parameter_name=parameter_value` </br>
+Multiple parameters can be overriden with a `;;` delimiter between them </br>
+**Example:** `username=Lily` </br>
+**Example:** `username=Lily;;city=Paris;;hobby=Jogging`
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
@@ -133,12 +139,16 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>7.4.0-4</td>
+      <td>7.5.0-3</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
    </tr>
    <tr>
+      <td>7.4.0-4</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.12">v1.0.12</a></td>
+   </tr>
+   <tr>
       <td>7.3.0-3</td>
-      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.10">v1.0.11</a></td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.11">v1.0.11</a></td>
    </tr>
    <tr>
       <td>7.2.0-4</td>
