@@ -4,9 +4,9 @@
 
 ## Introduction
 
-The Eggplant DAI Runner is an [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration tool that build as GitHub Action. It enables the functionality to launch DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based approach to testing](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
+The Eggplant DAI Runner for Github is an [Eggplant DAI](https://www.eggplantsoftware.com/digital-automation-intelligence) integration tool that is built as or builds as a GitHub Action. It enables the functionality to launch DAI tests from within a GitHub workflow pipeline. You can use it to continuously test your application's [model-based tests](https://docs.eggplantsoftware.com/docs/dai-using-eggplant-dai/).  For more information about Eggplant, visit https://www.eggplantsoftware.com.
 
-The core integration of the **Eggplant DAI Runner** are with [**DAI Test Configuration**](https://docs.eggplantsoftware.com/docs/dai-test-configuration/). **Eggplant DAI Runner** basically will communicate with the API services provided by **Eggplant DAI** to perform test configuration execution.
+The core integration of the **Eggplant DAI Runner** are [**DAI test configurations**](https://docs.eggplantsoftware.com/docs/dai-test-configuration/). The **Eggplant DAI Runner** communicates with the API services provided by **Eggplant DAI** to perform test configuration execution.
 
 ## Using Eggplant DAI Runner in your workflow
 
@@ -108,16 +108,16 @@ The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname
 **[Optional]** The path to an alternative Certificate Authority pem file. <br />
 
 ### `testResultPath`
-**[Optional]** Path to a file where the test results will be stored in junit xml format. <br />
+**[Optional]** The path to a file where the test results will be stored in JUnit XML format. <br />
 **Example:** `C:\results\result.xml`
 
 ### `eggplantRunnerPath`
-**[Optional]** The path to eggplant runner CLI executable. <br />
+**[Optional]** The path to Eggplant runner CLI executable. <br />
 
 ### `parameters`
-**[Optional]** The global parameter(s) to override in the format `parameter_name=parameter_value` </br>
-Multiple parameters can be overriden with a `;;` delimiter between them </br>
+**[Optional]** The global parameter(s) to override in the format `parameter_name=parameter_value`. </br>
 **Example:** `username=Lily` </br>
+You can override multiple parameters by separating them with a delimiter of two semi-colons (`;;`).</br>
 **Example:** `username=Lily;;city=Paris;;hobby=Jogging`
 
 ## Output
@@ -205,6 +205,11 @@ Hence, we can only do unilateral testing.
 
 
 4. Starting from v1.0.12 (DAI 7.4.0-4) onwards, Inputs `pollInterval` and `testEnvironmentTimeout` were removed. Warnings are expected if inputs are still in the workflow file.
+
+5. If the inputs for your parameters in the workflow contain double-quote (`"`) special characters, you must escape them with three backslashes (`\\\"`).<br />
+This is because double quotes (`"`) that are not escaped are used to wrap all the parameter input.<br />
+Furthermore, if your parameter inputs contain a dollar sign (`$`) special character, you must escape it with two backslashes `\\$` because the dollar sign is a reserved keyword for the workflow.<br />
+Example: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`
 
 # License
 
