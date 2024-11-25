@@ -88,7 +88,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 7.5.0-9 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 7.5.0-10 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -106,12 +106,12 @@ runs:
           filename_length=${#filename}
           CLI_FILENAME_LENGTH=${#CLI_FILENAME}
 
-          if [ "$CLI_FILENAME_LENGTH" == 29 ]; then
-            filename_minor=${filename:0:$((filename_length - 4))}
-            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 4))}
-          elif [ "$CLI_FILENAME_LENGTH" == 35 ]; then
-            filename_minor=${filename:0:$((filename_length - 8))}
-            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 8))}
+          if [ "$CLI_FILENAME_LENGTH" == 30 ]; then
+            filename_minor=${filename:0:$((filename_length - 5))}
+            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 5))}
+          elif [ "$CLI_FILENAME_LENGTH" == 36 ]; then
+            filename_minor=${filename:0:$((filename_length - 9))}
+            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 9))}
           else
             filename_minor=not match
             CLI_minor=not correct file format
