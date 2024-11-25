@@ -139,8 +139,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>7.5.0-9</td>
+      <td>7.5.0-10</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>7.5.0-9</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.12">v1.0.14</a></td>
    </tr>
    <tr>
       <td>7.4.0-4</td>
@@ -210,6 +214,8 @@ Hence, we can only do unilateral testing.
 This is because double quotes (`"`) that are not escaped are used to wrap all the parameter input.<br />
 Furthermore, if your parameter inputs contain a dollar sign (`$`) special character, you must escape it with two backslashes `\\$` because the dollar sign is a reserved keyword for the workflow.<br />
 Example: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`
+
+6. Release v1.0.15 (DAI 7.5.0-10) now allows passes after re-run.
 
 # License
 
