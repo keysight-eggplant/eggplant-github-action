@@ -215,6 +215,8 @@ This is because double quotes (`"`) that are not escaped are used to wrap all th
 Furthermore, if your parameter inputs contain a dollar sign (`$`) special character, you must escape it with two backslashes `\\$` because the dollar sign is a reserved keyword for the workflow.<br />
 Example: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`
 
+6. Release v1.0.15 (DAI 7.5.0-10) now allows passes after re-run.
+
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
