@@ -88,7 +88,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 25.1.0+0 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 25.1.0+3 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
