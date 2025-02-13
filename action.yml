@@ -88,7 +88,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 7.5.0-10 # AUB-13519_CICD_Junit_file_implementation
+        DAI_VERSION: 25.1.0+3 # AUB-13519_CICD_Junit_file_implementation
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -103,19 +103,20 @@ runs:
           filename=$(basename "${{ inputs.eggplantRunnerPath }}")
           filename_minor=""
           CLI_minor=""
-          filename_length=${#filename}
-          CLI_FILENAME_LENGTH=${#CLI_FILENAME}
+          pattern="eggplant-runner-(Windows|Linux|MacOS)-([0-9]{1,2}\\.[0-9])"
 
-          if [ "$CLI_FILENAME_LENGTH" == 30 ]; then
-            filename_minor=${filename:0:$((filename_length - 5))}
-            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 5))}
-          elif [ "$CLI_FILENAME_LENGTH" == 36 ]; then
-            filename_minor=${filename:0:$((filename_length - 9))}
-            CLI_minor=${CLI_FILENAME:0:$((CLI_FILENAME_LENGTH - 9))}
+          if [[ "$CLI_FILENAME" =~ $pattern ]]; then
+            CLI_minor="${BASH_REMATCH[0]}"
           else
-            filename_minor=not match
             CLI_minor=not correct file format
           fi
+
+          if [[ "$filename" =~ $pattern ]]; then
+            filename_minor="${BASH_REMATCH[0]}"
+          else
+            filename_minor=not match
+          fi
+
           if [[ "$filename_minor" != "$CLI_minor" ]]; then
             echo "Error: File found is invalid. Required: $CLI_FILENAME. Please download from $DOWNLOAD_URL"; exit 1;
           fi
