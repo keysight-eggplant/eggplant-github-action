@@ -120,6 +120,18 @@ The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname
 You can override multiple parameters by separating them with a delimiter of two semi-colons (`;;`).</br>
 **Example:** `username=Lily;;city=Paris;;hobby=Jogging`
 
+### `parametersFilePath`
+**[Optional]** The path to a user-created JSON file that contains the global parameters you want to override.
+
+### `filterBy`
+**[Optional]** The filters to execute specific steps within a test configuration in the form of `filter_name=filter_value`.<br />
+**Example** `step_status_include=Failed,Error`<br />
+You can enter multiple filters by separating them with a two semi-colon delimeter (`;;`).<br />
+**Example** `step_status_include=Failed,Error;;test_case_name_exclude=login_user`
+
+### `filterByJson`
+**[Optional]** The path to a user-created JSON file that contains all the filters to execute specific steps within a test configuration.
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
@@ -139,8 +151,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>25.1.0+3</td>
+      <td>25.2.0+0</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>25.1.0+3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.16">v1.0.16</a></td>
    </tr>
    <tr>
       <td>7.5.0-10</td>
