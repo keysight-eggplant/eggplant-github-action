@@ -151,7 +151,7 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>25.2.0+0</td>
+      <td>25.2.0+1</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
    </tr>
    <tr>
@@ -230,10 +230,11 @@ Hence, we can only do unilateral testing.
 
 4. Starting from v1.0.12 (DAI 7.4.0-4) onwards, Inputs `pollInterval` and `testEnvironmentTimeout` were removed. Warnings are expected if inputs are still in the workflow file.
 
-5. If the inputs for your parameters in the workflow contain double-quote (`"`) special characters, you must escape them with three backslashes (`\\\"`).<br />
+5. On `parameters` and `filterBy`: If the inputs for your parameters in the workflow contain double-quote (`"`) special characters, you must escape them with three backslashes (`\\\"`).<br />
 This is because double quotes (`"`) that are not escaped are used to wrap all the parameter input.<br />
 Furthermore, if your parameter inputs contain a dollar sign (`$`) special character, you must escape it with two backslashes `\\$` because the dollar sign is a reserved keyword for the workflow.<br />
-Example: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`
+Example parameter: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`<br />
+Example filter: `filterBy: "test_case_tag_exclude=\\\"Tag with space and dollar \\$ sign\\\""`
 
 6. Release v1.0.15 (DAI 7.5.0-10) now allows passes after re-run.
 
