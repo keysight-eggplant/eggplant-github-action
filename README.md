@@ -120,6 +120,18 @@ The **DAI Client Secret** can be obtained by go to `http(s):/dai_server_hostname
 You can override multiple parameters by separating them with a delimiter of two semi-colons (`;;`).</br>
 **Example:** `username=Lily;;city=Paris;;hobby=Jogging`
 
+### `parametersFilePath`
+**[Optional]** The path to a user-created JSON file that contains the global parameters you want to override.
+
+### `filterBy`
+**[Optional]** The filters to execute specific steps within a test configuration in the form of `filter_name=filter_value`.<br />
+**Example** `step_status_include=Failed,Error`<br />
+You can enter multiple filters by separating them with a two semi-colon delimeter (`;;`).<br />
+**Example** `step_status_include=Failed,Error;;test_case_name_exclude=login_user`
+
+### `filterByJson`
+**[Optional]** The path to a user-created JSON file that contains all the filters to execute specific steps within a test configuration.
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.
@@ -139,8 +151,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>25.1.0+3</td>
+      <td>25.2.0+1</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>25.1.0+3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.16">v1.0.16</a></td>
    </tr>
    <tr>
       <td>7.5.0-10</td>
@@ -214,10 +230,11 @@ Hence, we can only do unilateral testing.
 
 4. Starting from v1.0.12 (DAI 7.4.0-4) onwards, Inputs `pollInterval` and `testEnvironmentTimeout` were removed. Warnings are expected if inputs are still in the workflow file.
 
-5. If the inputs for your parameters in the workflow contain double-quote (`"`) special characters, you must escape them with three backslashes (`\\\"`).<br />
+5. On `parameters` and `filterBy`: If the inputs for your parameters in the workflow contain double-quote (`"`) special characters, you must escape them with three backslashes (`\\\"`).<br />
 This is because double quotes (`"`) that are not escaped are used to wrap all the parameter input.<br />
 Furthermore, if your parameter inputs contain a dollar sign (`$`) special character, you must escape it with two backslashes `\\$` because the dollar sign is a reserved keyword for the workflow.<br />
-Example: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`
+Example parameter: `parameters: "value=\\\"double quote with one dollar \\$ sign\\\""`<br />
+Example filter: `filterBy: "test_case_tag_exclude=\\\"Tag with space and dollar \\$ sign\\\""`
 
 6. Release v1.0.15 (DAI 7.5.0-10) now allows passes after re-run.
 
