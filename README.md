@@ -132,6 +132,9 @@ You can enter multiple filters by separating them with a two semi-colon delimete
 ### `filterByJson`
 **[Optional]** The path to a user-created JSON file that contains all the filters to execute specific steps within a test configuration.
 
+### `previousTaskInstanceID`
+**[Optional]** The UUID of a previously executed test configuration definition to be used in the current test configuration run. Defaults to the last ran execution of the given test configuration
+
 ## Output
 ### Pipeline triggered
 Based on the pipeline .yml configuration, when there is commits or pull request action performed. The pipeline will be triggered and Eggplant DAI Runner will be executed.

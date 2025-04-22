@@ -63,6 +63,9 @@ inputs:
   filterByJson:
     description: "The path to a user-created JSON file that contains all the filters to execute specific steps within a test configuration"
     required: false
+  previousTaskInstanceID:
+    description: "The UUID of a previously executed test configuration definition to be used in the current test configuration run"
+    required: false
   dryRun:
     description: "Perform a dry run only"
     required: false
@@ -278,6 +281,11 @@ runs:
             echo "Error: Invalid test config step filters file path";  exit 1; 
           fi
           COMMANDARGS+=("--filter-by-json=${{ inputs.filterByJson }}")
+        fi
+
+        # previousTaskInstanceID
+        if [ -n "${{ inputs.previousTaskInstanceID }}" ]; then
+          COMMANDARGS+=("--previous-task-instance-id=${{ inputs.previousTaskInstanceID }}")
         fi
 
         echo "Executing: $CLI_PATH ${COMMANDARGS[@]}"
