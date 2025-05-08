@@ -247,7 +247,7 @@ runs:
         
         # parameters
         if [ -n "${{ inputs.parameters}}" ]; then
-          readarray -t values < <(awk -v RS=';;' '{print}' <<< "${{ inputs.filterBy }}")
+          readarray -t values < <(awk -v RS=';;' '{print}' <<< "${{ inputs.parameters }}")
           for value in "${values[@]}"; do
             if [ -n "$value" ]; then
               COMMANDARGS+=("--param")
