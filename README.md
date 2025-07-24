@@ -181,7 +181,7 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>25.3.0+0</td>
+      <td>25.3.0+1</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
    </tr>
    <tr>
