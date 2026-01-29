@@ -100,7 +100,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 26.1.0+3
+        DAI_VERSION: 26.1.0+4
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
