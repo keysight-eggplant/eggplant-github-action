@@ -181,12 +181,16 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>25.4.0+3</td>
+      <td>26.1.0+4</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
    </tr>
    <tr>
+      <td>25.4.0+3</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.20">v1.0.20</a></td>
+   </tr>
+   <tr>
       <td>25.3.0+1</td>
-      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.18">v1.0.19</a></td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.19">v1.0.19</a></td>
    </tr>
    <tr>
       <td>25.2.0+5</td>
