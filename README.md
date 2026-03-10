@@ -75,6 +75,10 @@ DAI model name for the specified test configuration. (Use this argument if only 
 
 - ### `suiteName`
 DAI suite name for the specified test configuration. (Use this argument if only testConfigName is provided)
+
+- ### `spaceName`
+**[Optional]** DAI space name where the specified test configuration resides. (Use this argument if only testConfigName is provided)<br />
+**Default:** `Shared space`
              
 ### `clientID`
 **[Required]** The client ID to use to authenticate with the Eggplant DAI server. 
@@ -181,8 +185,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>26.1.0+4</td>
+      <td>26.2.0+0</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>26.1.0+4</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.21">v1.0.21</a></td>
    </tr>
    <tr>
       <td>25.4.0+3</td>

@@ -11,6 +11,9 @@ inputs:
   testConfigName: 
     description: "The name of the test config that you want to run"
     required: false
+  spaceName:
+    description: "DAI space name where the specified test configuration resides.(Use this argument if only testConfigName are provided)"
+    required: false
   modelName:
     description: "DAI model name for the specified test configuration.(Use this argument if only testConfigName are provided)"
     required: false
@@ -100,7 +103,7 @@ runs:
         echo "DOWNLOAD_URL=https://assets.eggplantsoftware.com/EggplantRunner/$EXE_FILENAME" >> $GITHUB_ENV
       shell: bash
       env:
-        DAI_VERSION: 26.1.0+4
+        DAI_VERSION: 26.2.0+0
 
     - name: Fetch CLI
       if: ${{ inputs.eggplantRunnerPath }}
@@ -191,22 +194,28 @@ runs:
         [[ "${{ inputs.serverURL }}" = *[!\ ]*  ]] || { echo "Error: Server URL consists of empty spaces only." ; exit 1; }
         echo "serverURL=${{ inputs.serverURL }}"
         
-        # serverURL, testConfigID, testConfigName, modelName, suiteName
+        # serverURL, testConfigID, testConfigName, spaceName, modelName, suiteName
         if [[ -n "${{ inputs.testConfigID }}" ]]; then
           echo "testConfigID=${{ inputs.testConfigID }}"
           COMMANDARGS=("${{ inputs.serverURL }}" "${{ inputs.testConfigID }}")
         elif [[ -n "${{ inputs.testConfigName }}" ]]; then
           echo "testConfigName=${{ inputs.testConfigName }}"
+          if [[ -n "${{ inputs.spaceName }}" ]]; then
+            SPACE_NAME="${{ inputs.spaceName }}"
+          else
+            SPACE_NAME="Shared space"
+          fi
+          echo "spaceName=$SPACE_NAME"
           if [[ ( -n "${{ inputs.modelName }}" ) && ( -n "${{ inputs.suiteName }}" ) ]]; then
             echo "modelName=${{ inputs.modelName }}"
             echo "suiteName=${{ inputs.suiteName }}"
             echo "Error: modelName and suiteName found,  Use testConfigName with only suiteName or modelName to continue.";  exit 1; 
           elif [[ -n "${{ inputs.modelName }}"  ]]; then
             echo "modelName=${{ inputs.modelName }}"
-            COMMANDARGS=("modelbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--model-name=${{ inputs.modelName }}")
+            COMMANDARGS=("modelbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--space-name=$SPACE_NAME" "--model-name=${{ inputs.modelName }}")
           elif [[ -n "${{ inputs.suiteName }}" ]]; then
             echo "suiteName=${{ inputs.suiteName }}"
-            COMMANDARGS=("scriptbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--suite-name=${{ inputs.suiteName }}")
+            COMMANDARGS=("scriptbased" "${{ inputs.serverURL }}" "--test-config-name=${{ inputs.testConfigName }}" "--space-name=$SPACE_NAME" "--suite-name=${{ inputs.suiteName }}")
           else
             echo "Error: testConfigName found, suiteName or modelName is required.";  exit 1; 
           fi
