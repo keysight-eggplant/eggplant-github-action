@@ -185,8 +185,12 @@ Based on the pipeline .yml configuration, when there is commits or pull request 
   </thead>
   <tbody>
    <tr>
-      <td>26.2.1+5</td>
+      <td>26.2.2+6</td>
       <td><a href="https://github.com/marketplace/actions/eggplant-runner">latest</a></td>
+   </tr>
+   <tr>
+      <td>26.2.1+5</td>
+      <td><a href="https://github.com/marketplace/actions/eggplant-runner?version=v1.0.23">v1.0.23</a></td>
    </tr>
    <tr>
       <td>26.2.0+4</td>
