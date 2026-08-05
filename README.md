@@ -300,8 +300,6 @@ Example filter: `filterBy: "test_case_tag_exclude=\\\"Tag with space and dollar 
 
 6. Release v1.0.15 (DAI 7.5.0-10) now allows passes after re-run.
 
-7. Starting from DAI 26.3.0+2, release tags mirror the DAI version instead of continuing the `v1.0.x` sequence, e.g. `v26.3.0_2` (`+` is replaced with `_` since `+` doesn't survive URL query strings). Existing `v1.0.x` tags are unaffected and continue to work with `uses: keysight-eggplant/eggplant-github-action@v1.0.x`.
-
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
